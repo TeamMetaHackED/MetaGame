@@ -25,36 +25,12 @@ BLUE = (0, 0, 255)
 
 pygame.init()
 
-# Interprets player inputs
-# If no key being pressed, returns player to STOP state
-def playerInput(key, player, walls):
-    backupX = player.xpos
-    backupY = player.ypos
-    if key [K_w]:
-        player.moveup()
-    if key [K_s]:
-        player.movedown()
-    if key [K_a]:
-        player.moveleft()
-    if key [K_d]:
-        player.moveright()
-    for wall in walls:
-        if player.sprite.colliderect(wall):
-            if player.state == "UP":
-                player.sprite.top = wall.bottom
-            if player.state == "DOWN":
-                player.sprite.bottom = wall.top
-            if player.state == "LEFT":
-                player.sprite.left = wall.right
-            if player.state == "RIGHT":
-                player.sprite.right = wall.left
-
 def main():
     running = True
 
     # initialize classes
     npcList = []
-    npcList.append(NPC(200, 200, 3, DISPLAYSURF, 'Kevin', 'Hi'))
+    npcList.append(NPC(200, 200, 3, DISPLAYSURF, 'Kevin', 'Hi', 1))
 
     player = Player(100, 100, 5, DISPLAYSURF)
     world = World()

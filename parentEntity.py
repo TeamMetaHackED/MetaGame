@@ -61,6 +61,29 @@ class Player(GameEntity):
         # Defines player specific variables
         self.inventory = {}
 
+    # Interprets player inputs
+    def playerInput(key, player, walls):
+        backupX = player.xpos
+        backupY = player.ypos
+        if key [K_w]:
+            player.moveup()
+        if key [K_s]:
+            player.movedown()
+        if key [K_a]:
+            player.moveleft()
+        if key [K_d]:
+            player.moveright()
+        for wall in walls:
+            if player.sprite.colliderect(wall):
+                if player.state == "UP":
+                    player.sprite.top = wall.bottom
+                if player.state == "DOWN":
+                    player.sprite.bottom = wall.top
+                if player.state == "LEFT":
+                    player.sprite.left = wall.right
+                if player.state == "RIGHT":
+                    player.sprite.right = wall.left
+
     # Updates entity x and y positions then draws to main surface
     def update(self):
         #self.sprite.x = self.xpos
@@ -70,16 +93,18 @@ class Player(GameEntity):
 
 
 class NPC(GameEntity):
-    def __init__(self, x, y, delta, surface, name, dialogue):
+    def __init__(self, x, y, delta, surface, name, dialogue, activity):
         # Constructs NPC with GameEntity as parent
         GameEntity.__init__(self, x, y, delta, surface)
         self.name = name
         self.dialogue = dialogue
-        self.activity = 1/activity
+        self.activity = 100 * 1/activity
 
     # Just basic random movements now, may add more complexity as collision is improved
     def computerAI(self):
+        # Calculates random value to dictate probability of movement
         moveprob = random.randrange(0, self.activity)
+        # Randomly selects direction to move in
         dirprob = random.randrange(0,4)
 
         if moveprob == 9:

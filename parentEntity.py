@@ -113,7 +113,9 @@ class NPC(GameEntity):
         self.colour = colour
 
         # How much NPCs move around
-        self.activity = 25 * activity
+        self.activity = 50 * activity
+
+        self.rect.inflate(50, 50)
 
     # Just basic random movements now, may add more complexity as collision is improved
     def computerAI(self, walls):
@@ -138,22 +140,28 @@ class NPC(GameEntity):
         self.move()
         self.collisionDetect(walls)
 
-    #def interact(self, surface):
+    def interact(self, surface, player):
         #call drawtext if conditions meat
         #Changes self.dialogue if conditions met
+        if self.rect.colliderect(player.rect):
+            return True
+        else:
+            return False
 
     def drawtext(self, surface, camera):
-        name = gameFunctions.Text(self.name, 16, self.colour, self.rect.x, self.rect.y)
+        name = gameFunctions.Text(self.name, 14, self.colour, self.rect.x, self.rect.y)
         # message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.centerx - 30,
         # self.rect.centery - 25)
         # CHANGEED THIS LIIIIINE
-
-        name.display(surface, camera)
+        textRect = self.rect
+        textRect.x += 20
+        name.display(surface, camera.applyRect(textRect))
         #message.display(surface, camera)
 
     # Updates entity x and y positions then draws to main surface
-    def update(self, walls, surface):
+    def update(self, walls, surface, player):
         self.computerAI(walls)
+        self.interact(surface, player)
 
 
 class Item(GameEntity):

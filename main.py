@@ -69,7 +69,7 @@ def main():
         player.update(key, walls)
         player.draw(camera)
         for npc in npcList:
-            npc.update(walls, DISPLAYSURF)
+            npc.update(walls, DISPLAYSURF, player)
             npc.draw(camera)
             npc.drawtext(DISPLAYSURF, camera)
         for coin in Coins:

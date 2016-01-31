@@ -3,8 +3,11 @@ import pygame
 import random
 import gameFunctions
 from pygame.locals import *
+from gameFunctions import *
 
 pygame.init()
+
+YELLOW = (255, 255, 0)
 
 # Creates parent game entity class
 # Create child class with this as parent like "class Entity(GameEntity):"calling GameEntity.__init__(dependencies) in class init function.
@@ -50,6 +53,7 @@ class GameEntity():
         self.surface.blit(self.sprite, cam.applyRect(self.rect))
 
 
+
 class Player(GameEntity):
     def __init__(self, x, y, delta, surface, colour):
         # Constructs player with GameEntity as parent
@@ -58,6 +62,8 @@ class Player(GameEntity):
         # sets initial movement values
         self.dx = 0
         self.dy = 0
+
+        self.points = 0
 
         # Defines player specific variables
         self.inventory = {}
@@ -79,6 +85,14 @@ class Player(GameEntity):
 
         self.move()
         self.collisionDetect(walls)
+
+    def draw(self, cam):
+        pointMsg = Text("Points: " + str(self.points), 12, YELLOW, 0, 0)
+        msgRect = self.rect.copy()
+        msgRect.x -= 300
+        msgRect.y += 250
+        GameEntity.draw(self, cam)
+        pointMsg.display(self.surface, cam.applyRect(msgRect))
 
     # Updates entity x and y positions then draws to main surface
     def update(self, key, walls):
@@ -147,5 +161,14 @@ class NPC(GameEntity):
 class Item(GameEntity):
     def __init__(self, x, y, surface, colour, description):
         GameEntity.__init__(self, x, y, 0, surface, colour)
-        self.pickedUp = false
+        self.pickedUp = False
         self.description = ""
+        self.sprite = pygame.Surface([10, 10])
+        self.sprite.fill(YELLOW)
+
+    # returns true when picked up
+    def update(self, playerRect):
+        if self.rect.colliderect(playerRect):
+            self.pickedUp = True
+            return True
+        return False

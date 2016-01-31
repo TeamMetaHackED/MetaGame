@@ -91,7 +91,7 @@ class Player(GameEntity):
         self.collisionDetect(walls)
 
     def draw(self, cam):
-        pointMsg = Text("Points: " + str(self.points), 12, YELLOW, 0, 0)
+        pointMsg = Text("Points: " + str(self.points), 18, YELLOW, 0, 0)
         msgRect = self.rect.copy()
         msgRect.x -= 300
         msgRect.y += 250
@@ -152,13 +152,13 @@ class NPC(GameEntity):
             self.messagetext(surface, camera)
 
     def nametext(self, surface, camera):
-        name = gameFunctions.Text(self.name, 14, self.colour, self.rect.x, self.rect.y)
+        name = gameFunctions.Text(self.name, 16, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
         textRect.x += 20
         name.display(surface, camera.applyRect(textRect))
 
     def messagetext(self, surface, camera):
-        message = gameFunctions.Text(self.dialogue, 11, self.colour, self.rect.x, self.rect.y)
+        message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
         textRect.x += 20
         textRect.y += 40

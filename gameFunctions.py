@@ -23,7 +23,7 @@ class Camera():
 
 class Text():
     def __init__(self, message, size, textcolour, x, y):
-        self.font = pygame.font.Font("npc_dialogue/8-BIT WONDER.TTF", size)
+        self.font = pygame.font.Font("npc_dialogue/slkscreb.ttf", size)
         self.surface = self.font.render(message, True, textcolour)
         self.rect = self.surface.get_rect()
 

@@ -32,14 +32,15 @@ def main():
     # initialize classes
     npcList = []
     npcList.append(NPC(200, 200, 3, DISPLAYSURF, BLUE, 'Kevin', 'Hi', 1))
-
     player = Player(100, 100, 5, DISPLAYSURF, WHITE)
     world = World()
     world.load("testlevel")
     walls = world.GetCollisionRects()
 
+    collidelist = [walls]
+
     # start music
-    pygame.mixer.music.load("main1_1.ogg")
+    pygame.mixer.music.load("music/main1_1.ogg")
     pygame.mixer.music.play(-1)
 
     while running:
@@ -60,9 +61,11 @@ def main():
         player.update(key, walls)
         for npc in npcList:
             npc.update(walls)
+        # DON'T DRAW ANYTHING BELOW HERE
 
         pygame.display.update()
 
+    pygame.exit()
 
 if __name__ == "__main__":
     main()

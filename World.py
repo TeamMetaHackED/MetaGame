@@ -3,7 +3,7 @@ import sys, pygame
 xlen = 80
 ylen = 80
 
-tilepic = pygame.image.load("tile.jpg")
+tilepic = pygame.image.load("textures/tile.jpg")
 tilerect = tilepic.get_rect()
 tilelen = 10
 
@@ -18,7 +18,7 @@ class World:
     def __init__(self):
         self.Tiles = [[0 for x in range(xlen)] for x in range(ylen)]
 
-    def load(self, fileName):
+    def load(self, fileName): # Should we use python files instead?  Might make creating the level easier
         x = 0
         y = 0
         f = open(fileName, 'r')

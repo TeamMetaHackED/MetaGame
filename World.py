@@ -18,7 +18,6 @@ class World:
     def __init__(self):
         self.Tiles = [[0 for x in range(xlen)] for x in range(ylen)]
 
-
     def load(self, fileName):
         x = 0
         y = 0
@@ -31,7 +30,6 @@ class World:
             x = 0
             y = y + 1
 
-
     def GetCollisionRects(self):
         rects = []
         for y in range(ylen):
@@ -40,7 +38,6 @@ class World:
                 if self.Tiles[x][y] == 'x':
                     rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
         return rects
-
 
     def draw(self, screen):
         for y in range(ylen):

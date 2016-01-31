@@ -25,6 +25,34 @@ BLUE = (0, 0, 255)
 
 pygame.init()
 
+<<<<<<< HEAD
+=======
+
+# Interprets player inputs
+# If no key being pressed, returns player to STOP state
+def playerInput(key, player, walls):
+    dx = 0
+    dy = 0
+    if key [K_w]:
+        dy = -1
+    if key [K_s]:
+        dy = 1
+    if key [K_a]:
+        dx = -1
+    if key [K_d]:
+        dx = 1
+    player.move(dx, dy)
+    for wall in walls:
+        if player.sprite.colliderect(wall):
+            if dy == -1:
+                player.sprite.top = wall.bottom
+            if dy == 1:
+                player.sprite.bottom = wall.top
+            if dx == -1:
+                player.sprite.left = wall.right
+            if dx == 1:
+                player.sprite.right = wall.left
+>>>>>>> 246f0770e7f271c7302ab8890ca1058b677c558d
 
 def main():
     running = True

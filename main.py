@@ -70,7 +70,7 @@ def main():
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, MAGENTA, 'Joel', 'I feel so optimistic!', 1))
     npcList.append(NPC(600, 500, 3, DISPLAYSURF, RYAN, 'Ryan', 'SLEEP IS FOR THE WEAK', 1))
 
-    player = Player(850, 450, 5, DISPLAYSURF, WHITE)
+    player = Player(850, 450, 10, DISPLAYSURF, WHITE)
     world = World()
     world.load("testlevel")
     walls = world.GetCollisionRects()
@@ -89,6 +89,7 @@ def main():
     musiclist = ['music/main1_1.ogg','music/pizzle1.ogg','music/boss.ogg']
     pygame.mixer.music.load(random.choice(musiclist))
     pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.3)
 
     while running:
         clock.tick(FPS)

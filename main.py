@@ -25,7 +25,6 @@ BLUE = (0, 0, 255)
 
 pygame.init()
 
-
 # Interprets player inputs
 # If no key being pressed, returns player to STOP state
 def playerInput(key, player, walls):
@@ -50,6 +49,7 @@ def playerInput(key, player, walls):
                 player.sprite.left = wall.right
             if dx == 1:
                 player.sprite.right = wall.left
+
 
 def main():
     running = True
@@ -84,7 +84,7 @@ def main():
         world.draw(DISPLAYSURF)
         player.update(key, walls)
         for npc in npcList:
-            npc.update()
+            npc.update(walls)
 
         pygame.display.update()
 

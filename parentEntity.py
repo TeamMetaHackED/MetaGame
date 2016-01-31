@@ -95,7 +95,7 @@ class NPC(GameEntity):
         self.dialogue = dialogue
 
         # How much NPCs move around
-        self.activity = 100 * 1.5 * activity
+        self.activity = 25 * activity
 
     # Just basic random movements now, may add more complexity as collision is improved
     def computerAI(self, walls):
@@ -115,8 +115,9 @@ class NPC(GameEntity):
             elif dirprob == 3:
                 self.dx = 1
             else:
+                # resets movement values to 0
                 self.dx, self.dy = 0, 0
-            self.move()
+        self.move()
 
         for wall in walls:
             if self.sprite.colliderect(wall):

@@ -22,6 +22,22 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 255)
 BLUE = (0, 0, 255)
 
+pygame.init()
+
+# Interprets player inputs
+# If no key being pressed, returns player to STOP state
+def playerInput(key, player):
+    if key [K_w]:
+        player.moveup()
+    if key [K_s]:
+        player.movedown()
+    if key [K_a]:
+        player.moveleft()
+    if key [K_d]:
+        player.moveright()
+    else:
+        player.stop()
+
 def main():
 
     running = True
@@ -36,31 +52,21 @@ def main():
 
         for event in pygame.event.get():
             if event.type == QUIT:
+                running = False
                 pygame.quit()
                 sys.exit()
             elif event.type == KEYDOWN and event.key == K_ESCAPE:
-                pygame.quit()
-                sys.exit()
+                running = False
 
-        # Interprets player inputs
-        # If no key being pressed, returns player to STOP state
-        if key [K_w]:
-            player.moveup()
-        elif key [K_s]:
-            player.movedown()
-        elif key [K_a]:
-            player.moveleft()
-        elif key [K_d]:
-            player.moveright()
-        else:
-            player.stop()
-
+        # Call to input handler
+        playerInput(key, player)
 
         # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
         player.update()
 
         pygame.display.update()
+
 
 if __name__ == "__main__":
     main()

@@ -32,10 +32,6 @@ class World:
             y = y + 1
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c57670512da5f9f59a12c9dd40e18e632310e0e6
     def GetCollisionRects(self):
         rects = []
         for y in range(ylen):
@@ -45,11 +41,7 @@ class World:
                     rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
         return rects
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> c57670512da5f9f59a12c9dd40e18e632310e0e6
     def draw(self, screen):
         for y in range(ylen):
             for x in range(xlen):

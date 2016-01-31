@@ -1,6 +1,7 @@
 import sys
 import pygame
 import random
+from pygame.locals import *
 
 pygame.init()
 
@@ -20,9 +21,6 @@ class GameEntity():
         # Gets entity image and associated rect
         self.sprite = pygame.rect.Rect((self.xpos, self.ypos, 5, 5)) # Not sure how to get stuff from bitmap
         #self.rect = self.sprite.get_rect()
-
-        # Can later be used for boolean state comparisons (Running, activated, etc)
-        self.state = "STOP" # Set to not moving
 
         # sets movement speed
         self.delta = delta
@@ -47,33 +45,33 @@ class Player(GameEntity):
         self.inventory = {}
 
     # Interprets player inputs
-    def playerInput(key, player, walls):
-        backupX = player.xpos
-        backupY = player.ypos
+    def playerInput(self, key, walls):
+        backupX = self.xpos
+        backupY = self.ypos
+
         if key [K_w]:
-            player.moveup()
+            GameEntity.move(0, -1)
         if key [K_s]:
-            player.movedown()
+            GameEntity.move(0, 1)
         if key [K_a]:
-            player.moveleft()
+            GameEntity.move(-1, 0)
         if key [K_d]:
-            player.moveright()
+            GameEntity.move(1, 0)
+
         for wall in walls:
-            if player.sprite.colliderect(wall):
-                if player.state == "UP":
-                    player.sprite.top = wall.bottom
-                if player.state == "DOWN":
-                    player.sprite.bottom = wall.top
-                if player.state == "LEFT":
-                    player.sprite.left = wall.right
-                if player.state == "RIGHT":
-                    player.sprite.right = wall.left
+            if self.sprite.colliderect(wall):
+                if self.state == "UP":
+                    self.sprite.top = wall.bottom
+                if self.state == "DOWN":
+                    self.sprite.bottom = wall.top
+                if self.state == "LEFT":
+                    self.sprite.left = wall.right
+                if self.state == "RIGHT":
+                    self.sprite.right = wall.left
 
     # Updates entity x and y positions then draws to main surface
-    def update(self):
-        #self.sprite.x = self.xpos
-        #self.sprite.y = self.ypos
-
+    def update(self, key, walls):
+        self.playerInput(key, walls)
         self.draw()
 
 

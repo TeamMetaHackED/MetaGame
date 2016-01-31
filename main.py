@@ -30,10 +30,11 @@ pygame.init()
 
 def main():
     running = True
+    interacting = False
 
     # initialize classes
     npcList = []
-    npcList.append(NPC(200, 200, 3, DISPLAYSURF, RED, 'Kevin', 'Hi', 1))#kevin
+    npcList.append(NPC(260, 280, 3, DISPLAYSURF, RED, 'Kevin', 'Hi', 1))#kevin
     npcList.append(NPC(200, 700, 3, DISPLAYSURF, RED, 'Devon', 'Hi', 1))#diaLog (NO)
     npcList.append(NPC(1200, 1100, 3, DISPLAYSURF, RED, 'Arjun', 'Hi', 1))#Fire Escape (correct)
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'Curtis', 'Hi', 1))#Dstancr (NO)
@@ -62,7 +63,7 @@ def main():
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'Luke', 'Hi', 1))#muffin busters
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'Ian', 'Hi', 1))#Meta
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'Joel', 'Hi', 1))
-    npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'RDIZZLE', 'IAN SUXXX', 1))
+    npcList.append(NPC(600, 500, 3, DISPLAYSURF, RED, 'RDIZZLE', 'IAN SUXXX', 1))
 
 
     player = Player(100, 100, 5, DISPLAYSURF, WHITE)
@@ -71,8 +72,8 @@ def main():
     walls = world.GetCollisionRects()
     camera = Camera(50, 50)
     Coins = []
-    Coins.append(Item(40, 40, DISPLAYSURF, YELLOW, "money"))
-    Coins.append(Item(40, 200, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(40, 40, DISPLAYSURF, YELLOW))
+    Coins.append(Item(40, 200, DISPLAYSURF, YELLOW))
 
     collidelist = [walls]
 
@@ -101,9 +102,9 @@ def main():
         player.draw(camera)
 
         for npc in npcList:
-            npc.update(walls, DISPLAYSURF, player)
+            npc.update(walls, DISPLAYSURF, player, camera)
             npc.draw(camera)
-            npc.drawtext(DISPLAYSURF, camera)
+            npc.nametext(DISPLAYSURF, camera)
 
         for coin in Coins:
             if coin.update(player.rect):

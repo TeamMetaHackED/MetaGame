@@ -23,8 +23,8 @@ class GameEntity():
         self.sprite.fill(colour)
 
         self.rect = self.sprite.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.centerx = x
+        self.rect.centery = y
 
         # sets movement speed
         self.delta = delta
@@ -32,8 +32,13 @@ class GameEntity():
     # Functions to be called to trigger entity movement
     # States should make it easier to detect collision with screen borders etc
     def move(self):
-        self.rect.x += self.dx * self.delta
-        self.rect.y += self.dy * self.delta
+        if self.dx != 0:
+            self.rect.centerx += self.dx * self.delta
+            self.dy = 0
+
+        elif self.dy !=0:
+            self.rect.centery += self.dy * self.delta
+            self.dx = 0
 
     # Checks for collisions
     def collisionDetect(self, walls):
@@ -115,7 +120,7 @@ class NPC(GameEntity):
         # How much NPCs move around
         self.activity = 100 * activity
 
-        #self.rect.inflate(10, 10)
+        self.rect = self.rect.inflate(20, 20)
 
     # Just basic random movements now, may add more complexity as collision is improved
     def computerAI(self, walls):
@@ -140,35 +145,35 @@ class NPC(GameEntity):
         self.collisionDetect(walls)
         self.move()
 
-    def interact(self, surface, player):
+    def interact(self, surface, player, camera):
         #call drawtext if conditions meat
         #Changes self.dialogue if conditions met
         if self.rect.colliderect(player.rect):
-            return True
-        else:
-            return False
+            self.messagetext(surface, camera)
 
-    def drawtext(self, surface, camera):
+    def nametext(self, surface, camera):
         name = gameFunctions.Text(self.name, 14, self.colour, self.rect.x, self.rect.y)
-        # message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.centerx - 30,
-        # self.rect.centery - 25)
-        # CHANGEED THIS LIIIIINE
-        textRect = self.rect
+        textRect = self.rect.copy()
         textRect.x += 20
         name.display(surface, camera.applyRect(textRect))
-        #message.display(surface, camera)
+
+    def messagetext(self, surface, camera):
+        message = gameFunctions.Text(self.dialogue, 11, self.colour, self.rect.x, self.rect.y)
+        textRect = self.rect.copy()
+        textRect.x += 20
+        textRect.y += 40
+        message.display(surface, camera.applyRect(textRect))
 
     # Updates entity x and y positions then draws to main surface
-    def update(self, walls, surface, player):
+    def update(self, walls, surface, player, camera):
         self.computerAI(walls)
-        self.interact(surface, player)
+        self.interact(surface, player, camera)
 
 
 class Item(GameEntity):
-    def __init__(self, x, y, surface, colour, description):
+    def __init__(self, x, y, surface, colour):
         GameEntity.__init__(self, x, y, 0, surface, colour)
         self.pickedUp = False
-        self.description = ""
         self.sprite = pygame.Surface([10, 10])
         self.sprite.fill(YELLOW)
 

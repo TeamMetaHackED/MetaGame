@@ -44,13 +44,8 @@ class World:
         for y in range(ylen):
             for x in range(xlen):
                 color = BLACK
-
                 if self.Tiles[x][y] == '0':
                     color = BLACK
-                    # image = "textures/floor.png"
-                    # sprite = pygame.sprite.Sprite() # Not sure how to get stuff from bitmap
-                    # sprite.image = pygame.image.load(image).convert()
-                    # sprite.image = pygame.transform.scale(sprite, (tilelen, tilelen))
                 elif self.Tiles[x][y] == 'x':
                     color = GREEN
 

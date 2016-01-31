@@ -34,8 +34,13 @@ def main():
 
     # initialize classes
     npcList = []
+<<<<<<< HEAD
     npcList.append(NPC(260, 280, 3, DISPLAYSURF, RED, 'Kevin', 'Hi', 1))#kevin
     npcList.append(NPC(200, 700, 3, DISPLAYSURF, RED, 'Devon', 'Hi', 1))#diaLog (NO)
+=======
+    npcList.append(NPC(200, 200, 3, DISPLAYSURF, RED, 'Kevin', 'Hi', 1))#kevin
+    npcList.append(NPC(200, 50, 3, DISPLAYSURF, RED, 'Devon', 'Hi', 1))#diaLog (NO)
+>>>>>>> 1b16677e879852e9de6ce45a6460692332a4a6f6
     npcList.append(NPC(1200, 1100, 3, DISPLAYSURF, RED, 'Arjun', 'Hi', 1))#Fire Escape (correct)
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'Curtis', 'Hi', 1))#Dstancr (NO)
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'Akrama', 'Hi', 1))#Akrama (NO)
@@ -72,8 +77,14 @@ def main():
     walls = world.GetCollisionRects()
     camera = Camera(50, 50)
     Coins = []
+
     Coins.append(Item(40, 40, DISPLAYSURF, YELLOW))
     Coins.append(Item(40, 200, DISPLAYSURF, YELLOW))
+    Coins.append(Item(40, 40, DISPLAYSURF, YELLOW))
+    Coins.append(Item(40, 200, DISPLAYSURF, YELLOW))
+    Coins.append(Item(400, 500, DISPLAYSURF, YELLOW))
+    Coins.append(Item(900, 500, DISPLAYSURF, YELLOW))
+    Coins.append(Item(1200, 1100, DISPLAYSURF, YELLOW))
 
     collidelist = [walls]
 

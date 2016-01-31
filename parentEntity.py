@@ -120,7 +120,7 @@ class NPC(GameEntity):
         # How much NPCs move around
         self.activity = 100 * activity
 
-        self.rect = self.rect.inflate(20, 20)
+        self.rect = self.rect.inflate(30, 30)
 
     # Just basic random movements now, may add more complexity as collision is improved
     def computerAI(self, walls):

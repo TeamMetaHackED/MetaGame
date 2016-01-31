@@ -147,8 +147,9 @@ class NPC(GameEntity):
         # message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.centerx - 30,
         # self.rect.centery - 25)
         # CHANGEED THIS LIIIIINE
-
-        name.display(surface, camera)
+        textRect = self.rect
+        textRect.x += 20
+        name.display(surface, camera.applyRect(textRect))
         #message.display(surface, camera)
 
     # Updates entity x and y positions then draws to main surface

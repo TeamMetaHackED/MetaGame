@@ -113,9 +113,9 @@ class NPC(GameEntity):
         self.colour = colour
 
         # How much NPCs move around
-        self.activity = 50 * activity
+        self.activity = 100 * activity
 
-        self.rect.inflate(50, 50)
+        #self.rect.inflate(10, 10)
 
     # Just basic random movements now, may add more complexity as collision is improved
     def computerAI(self, walls):
@@ -137,8 +137,8 @@ class NPC(GameEntity):
             if dirprob == 3:
                 self.dx = 1
 
-        self.move()
         self.collisionDetect(walls)
+        self.move()
 
     def interact(self, surface, player):
         #call drawtext if conditions meat

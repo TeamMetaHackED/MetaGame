@@ -34,7 +34,6 @@ pygame.init()
 
 def main():
     running = True
-    interacting = False
 
     # initialize classes
     npcList = []
@@ -85,14 +84,7 @@ def main():
     Coins.append(Item(400, 500, DISPLAYSURF, YELLOW))
     Coins.append(Item(900, 500, DISPLAYSURF, YELLOW))
     Coins.append(Item(1200, 1100, DISPLAYSURF, YELLOW))
-    Coins.append(Item(750, 50, DISPLAYSURF, YELLOW))
-    Coins.append(Item(1150, 900, DISPLAYSURF, YELLOW))
-    Coins.append(Item(1300, 450, DISPLAYSURF, YELLOW))
-    Coins.append(Item(750, 1400, DISPLAYSURF, YELLOW))
-    Coins.append(Item(200, 1300, DISPLAYSURF, YELLOW))
-    Coins.append(Item(55, 775, DISPLAYSURF, YELLOW))
 
-    collidelist = [walls]
     # start music
     musiclist = ['music/main1_1.ogg','music/pizzle1.ogg','music/boss.ogg']
     pygame.mixer.music.load(random.choice(musiclist))
@@ -117,12 +109,10 @@ def main():
         world.draw(DISPLAYSURF, camera)
         player.update(key, walls)
         player.draw(camera)
-
         for npc in npcList:
-            npc.update(walls, DISPLAYSURF, player, camera)
+            npc.update(walls, DISPLAYSURF,player, camera)
             npc.draw(camera)
             npc.nametext(DISPLAYSURF, camera)
-
         for coin in Coins:
             if coin.update(player.rect):
                 Coins.remove(coin)

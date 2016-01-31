@@ -160,13 +160,13 @@ class NPC(GameEntity):
             self.talking = False
 
     def nametext(self, surface, camera):
-        name = gameFunctions.Text(self.name, 16, self.colour, self.rect.x, self.rect.y)
+        name = gameFunctions.Text(self.name, 18, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
         textRect.x += 20
         name.display(surface, camera.applyRect(textRect))
 
     def messagetext(self, surface, camera):
-        message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.x, self.rect.y)
+        message = gameFunctions.Text(self.dialogue, 15, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
         textRect.x += 20
         textRect.y += 40

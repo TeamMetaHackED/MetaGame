@@ -77,11 +77,16 @@ def main():
     walls = world.GetCollisionRects()
     camera = Camera(50, 50)
     Coins = []
-    Coins.append(Item(40, 40, DISPLAYSURF, YELLOW, "money"))
-    Coins.append(Item(40, 200, DISPLAYSURF, YELLOW, "money"))
-    Coins.append(Item(400, 500, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(40, 50, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(40, 500, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(750, 50, DISPLAYSURF, YELLOW, "money"))
     Coins.append(Item(900, 500, DISPLAYSURF, YELLOW, "money"))
     Coins.append(Item(1200, 1100, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(1150, 900, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(1300, 450, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(750, 1400, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(200, 1300, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(55, 775, DISPLAYSURF, YELLOW, "money"))
 
     collidelist = [walls]
 

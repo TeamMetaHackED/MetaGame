@@ -5,7 +5,7 @@ ylen = 80
 
 tilepic = pygame.image.load("textures/tile.jpg")
 tilerect = tilepic.get_rect()
-tilelen = 10
+tilelen = 20
 
 # Some basic colours for use
 BLACK = (0, 0, 0)
@@ -41,7 +41,7 @@ class World:
                     rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
         return rects
 
-    def draw(self, screen):
+    def draw(self, screen, cam):
         for y in range(ylen):
             for x in range(xlen):
                 color = BLACK
@@ -49,7 +49,11 @@ class World:
                     color = BLACK
                 elif self.Tiles[x][y] == 'x':
                     color = GREEN
-                pygame.draw.rect(screen, color, (tilelen*x, tilelen*y, tilelen, tilelen), 0)
+                sprite = pygame.Surface([tilelen,tilelen])
+                sprite.fill(color)
+                #(tilelen*x, tilelen*y, tilelen, tilelen)
+                screen.blit(sprite,
+                            cam.applyRect(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen)))
 
 
 # O = open space, no collision, no interaction

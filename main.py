@@ -3,6 +3,7 @@ import sys
 import time
 from parentEntity import *
 from World import *
+from gameFunctions import *
 from pygame.locals import *
 from pygame.time import *
 
@@ -36,6 +37,7 @@ def main():
     world = World()
     world.load("testlevel")
     walls = world.GetCollisionRects()
+    camera = Camera(50, 50)
 
     collidelist = [walls]
 
@@ -56,11 +58,14 @@ def main():
                 running = False
 
         # DON'T DRAW ANYTHING ABOVE HERE
+        camera.update(player.rect)
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
-        world.draw(DISPLAYSURF)
+        world.draw(DISPLAYSURF, camera)
         player.update(key, walls)
+        player.draw(camera.apply(player))
         for npc in npcList:
             npc.update(walls)
+            npc.draw(camera.apply(npc))
         # DON'T DRAW ANYTHING BELOW HERE
 
         pygame.display.update()

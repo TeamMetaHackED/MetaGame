@@ -15,7 +15,7 @@ class GameEntity():
         self.surface = surface
 
         # Gets entity image and associated rect
-        self.sprite = pygame.Surface([10, 10]) # Not sure how to get stuff from bitmap
+        self.sprite = pygame.Surface([20, 20]) # Not sure how to get stuff from bitmap
         self.sprite.fill(colour)
 
         self.rect = self.sprite.get_rect()
@@ -45,8 +45,8 @@ class GameEntity():
                     self.rect.right = wall.left
 
     # Draws each rect to the main surface
-    def draw(self):
-        self.surface.blit(self.sprite, self.rect.center())
+    def draw(self, cam):
+        self.surface.blit(self.sprite, cam)
 
 
 class Player(GameEntity):
@@ -82,7 +82,6 @@ class Player(GameEntity):
     # Updates entity x and y positions then draws to main surface
     def update(self, key, walls):
         self.playerInput(key, walls)
-        self.draw()
 
 # Could create "sphere of influence" around NPC that player can interact inside of
 class NPC(GameEntity):
@@ -128,14 +127,9 @@ class NPC(GameEntity):
     def update(self, walls):
         self.computerAI(walls)
 
-        self.draw()
-
 
 class Item(GameEntity):
     def __init__(self, x, y, surface, colour, description):
         GameEntity.__init__(self, x, y, 0, surface, colour)
         self.pickedUp = false
         self.description = ""
-
-    def update():
-        self.draw()

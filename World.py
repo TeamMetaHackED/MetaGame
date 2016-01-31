@@ -67,3 +67,4 @@ class World:
 # O = open space, no collision, no interaction
 # X = wall, causes collision
 # # = number defines another level to load
+# $ = coin

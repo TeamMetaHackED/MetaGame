@@ -8,7 +8,7 @@ class Camera():
         self.state = pygame.Rect(0, 0, width, height)
 
     # transform rectangle coordinates into camera space
-    # call this on any rects you pass to a rendering function
+    # call this on any rects you pass to a render
     def applyRect(self, rect):
         return rect.move(self.state.topleft)
 

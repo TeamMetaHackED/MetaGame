@@ -23,6 +23,7 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 255)
 BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
 
 pygame.init()
 
@@ -38,6 +39,9 @@ def main():
     world.load("testlevel")
     walls = world.GetCollisionRects()
     camera = Camera(50, 50)
+    Coins = []
+    Coins.append(Item(40, 40, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(40, 200, DISPLAYSURF, YELLOW, "money"))
 
     collidelist = [walls]
 
@@ -68,6 +72,11 @@ def main():
             npc.update(walls, DISPLAYSURF)
             npc.draw(camera)
             npc.drawtext(DISPLAYSURF, camera)
+        for coin in Coins:
+            if coin.update(player.rect):
+                Coins.remove(coin)
+                player.points += 1
+            coin.draw(camera)
         # DON'T DRAW ANYTHING BELOW HERE
 
         pygame.display.update()

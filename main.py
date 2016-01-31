@@ -63,11 +63,11 @@ def main():
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
         world.draw(DISPLAYSURF, camera)
         player.update(key, walls)
-        player.draw(camera.apply(player))
+        player.draw(camera)
         for npc in npcList:
             npc.update(walls, DISPLAYSURF)
-            npc.draw(camera.apply(npc))
-            npc.drawtext(DISPLAYSURF, camera.apply(npc))
+            npc.draw(camera)
+            npc.drawtext(DISPLAYSURF, camera)
         # DON'T DRAW ANYTHING BELOW HERE
 
         pygame.display.update()

@@ -7,12 +7,12 @@ class Camera():
     def __init__(self, width, height):
         self.state = pygame.Rect(0, 0, width, height)
 
-    def apply(self, target):
-        return target.rect.move(self.state.topleft)
-
+    # transform rectangle coordinates into camera space
+    # call this on any rects you pass to a rendering function
     def applyRect(self, rect):
         return rect.move(self.state.topleft)
 
+    # camera follows target
     def trackMethod(self, target):
         l, t, _, _ = target
         _, _, w, h = self.state

@@ -25,6 +25,7 @@ BLUE = (0, 0, 255)
 
 pygame.init()
 
+
 # Interprets player inputs
 # If no key being pressed, returns player to STOP state
 def playerInput(key, player, walls):
@@ -55,7 +56,7 @@ def main():
 
     # initialize classes
     npcList = []
-    npcList.append(NPC(200, 200, 3, DISPLAYSURF, 'Kevin', 'Hi'))
+    npcList.append(NPC(200, 200, 3, DISPLAYSURF, 'Kevin', 'Hi', 1))
 
     player = Player(100, 100, 5, DISPLAYSURF)
     world = World()

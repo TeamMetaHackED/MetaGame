@@ -112,6 +112,9 @@ class NPC(GameEntity):
         self.dx = 0
         self.dy = 0
 
+        self.talking = False
+        self.speech = pygame.mixer.Sound("music/voices/Male2.ogg")
+
         # what NPCs will say when interacted with
         self.name = name
         self.dialogue = dialogue
@@ -149,7 +152,12 @@ class NPC(GameEntity):
         #call drawtext if conditions meat
         #Changes self.dialogue if conditions met
         if self.rect.colliderect(player.rect):
+            if not self.talking:
+                self.talking = True
+                self.speech.play()
             self.messagetext(surface, camera)
+        else:
+            self.talking = False
 
     def nametext(self, surface, camera):
         name = gameFunctions.Text(self.name, 14, self.colour, self.rect.x, self.rect.y)

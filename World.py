@@ -17,8 +17,8 @@ BLUE = (0, 0, 255)
 class World:
     def __init__(self):
         self.Tiles = [[0 for x in range(xlen)] for x in range(ylen)]
-    
-    
+
+
     def load(self, fileName):
         x = 0
         y = 0
@@ -31,16 +31,6 @@ class World:
             x = 0
             y = y + 1
 
-    def GetCollisionRects(self):
-        rects = []
-        for y in range(ylen):
-            for x in range(xlen):
-                color = BLACK
-                if self.Tiles[x][y] == 'X':
-                    rects.append((tilelen*x, tilelen*y, tilelen, tilelen))
-        return rects
-
-
     def draw(self, screen):
         for y in range(ylen):
             for x in range(xlen):
@@ -52,15 +42,6 @@ class World:
                 pygame.draw.rect(screen, color, (tilelen*x, tilelen*y, tilelen, tilelen), 0)
 
 
-
-
-
-
-
-
-
 # O = open space, no collision, no interaction
 # X = wall, causes collision
 # # = number defines another level to load
-
-    

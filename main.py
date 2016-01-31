@@ -44,7 +44,10 @@ def main():
     running = True
 
     # initialize classes
-    player = GameEntity(100, 100, 5, DISPLAYSURF)
+    npcList = []
+    npcList.append(NPC(200, 200, 3, DISPLAYSURF, 'Kevin', 'Hi'))
+
+    player = Player(100, 100, 5, DISPLAYSURF)
     world = World()
     world.load("testlevel")
 
@@ -68,6 +71,8 @@ def main():
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
         world.draw(DISPLAYSURF)
         player.update()
+        for npc in npcList:
+            npc.update()
 
         pygame.display.update()
 

@@ -34,7 +34,7 @@ def main():
     # initialize classes
     npcList = []
     npcList.append(NPC(200, 200, 3, DISPLAYSURF, RED, 'Kevin', 'Hi', 1))#kevin
-    npcList.append(NPC(200, 700, 3, DISPLAYSURF, RED, 'Devon', 'Hi', 1))#diaLog (NO)
+    npcList.append(NPC(200, 50, 3, DISPLAYSURF, RED, 'Devon', 'Hi', 1))#diaLog (NO)
     npcList.append(NPC(1200, 1100, 3, DISPLAYSURF, RED, 'Arjun', 'Hi', 1))#Fire Escape (correct)
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'Curtis', 'Hi', 1))#Dstancr (NO)
     npcList.append(NPC(400, 500, 3, DISPLAYSURF, RED, 'Akrama', 'Hi', 1))#Akrama (NO)

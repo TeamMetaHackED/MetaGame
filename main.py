@@ -2,12 +2,13 @@ import pygame
 import sys
 import time
 from parentEntity import *
+from World import *
 from pygame.locals import *
 from pygame.time import *
 
 # Window setup
-DISPLAYWIDTH = 1080
-DISPLAYHEIGHT = 720
+DISPLAYWIDTH = 600
+DISPLAYHEIGHT = 600
 DISPLAYSURF = pygame.display.set_mode((DISPLAYWIDTH, DISPLAYHEIGHT))
 pygame.display.set_caption('Hackathon 2016 THE GAME')
 
@@ -28,6 +29,8 @@ def main():
 
     # initialize classes
     player = GameEntity(100, 100, 5, DISPLAYSURF)
+    world = World()
+    world.load("testlevel")
 
 
     while running:
@@ -58,6 +61,7 @@ def main():
 
         # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
+        world.draw(DISPLAYSURF)
         player.update()
 
         pygame.display.update()

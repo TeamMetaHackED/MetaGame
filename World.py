@@ -1,5 +1,4 @@
 import sys, pygame
-pygame.init()
 
 xlen = 60
 ylen = 60
@@ -8,19 +7,19 @@ tilepic = pygame.image.load("tile.jpg")
 tilerect = tilepic.get_rect()
 tilelen = 10
 
-
-size = width, height = (600, 600)
-screen = pygame.display.set_mode(size)
-black = (0,0,0)
-white = (255, 255, 255)
-blue = (0, 0, 255)
+# Some basic colours for use
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 255)
+BLUE = (0, 0, 255)
 
 class World:
     def __init__(self):
         self.Tiles = [[0 for x in range(xlen)] for x in range(ylen)]
     
     
-    def Load(self, fileName):
+    def load(self, fileName):
         x = 0
         y = 0
         f = open(fileName, 'r')
@@ -32,27 +31,18 @@ class World:
             x = 0
             y = y + 1
 
-#def Render(screen):
+    def draw(self, screen):
+        for y in range(ylen):
+            for x in range(xlen):
+                color = BLACK
+                if self.Tiles[x][y] == 'O':
+                    color = BLACK
+                elif self.Tiles[x][y] == 'X':
+                    color = GREEN
+                pygame.draw.rect(screen, color, (tilelen*x, tilelen*y, tilelen, tilelen), 0)
 
-world = World()
-world.Load("testlevel")
 
-while 1:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
 
-    screen.fill(black)
-
-    for y in range(ylen):
-        for x in range(xlen):
-            color = white
-            if world.Tiles[x][y] == 'O':
-                color = black
-            elif world.Tiles[x][y] == 'X':
-                color = blue
-            pygame.draw.rect(screen, color, (tilelen*x, tilelen*y, tilelen, tilelen), 0)
-
-    pygame.display.update()
 
 
 

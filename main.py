@@ -25,8 +25,6 @@ BLUE = (0, 0, 255)
 
 pygame.init()
 
-<<<<<<< HEAD
-=======
 
 # Interprets player inputs
 # If no key being pressed, returns player to STOP state
@@ -52,7 +50,6 @@ def playerInput(key, player, walls):
                 player.sprite.left = wall.right
             if dx == 1:
                 player.sprite.right = wall.left
->>>>>>> 246f0770e7f271c7302ab8890ca1058b677c558d
 
 def main():
     running = True
@@ -66,6 +63,9 @@ def main():
     world.load("testlevel")
     walls = world.GetCollisionRects()
 
+    # start music
+    pygame.mixer.music.load("main1_1.ogg")
+    pygame.mixer.music.play(-1)
 
     while running:
         clock.tick(FPS)

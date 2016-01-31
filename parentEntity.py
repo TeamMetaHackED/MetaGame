@@ -74,6 +74,14 @@ class Player(GameEntity):
         self.playerInput(key, walls)
         self.draw()
 
+class Item(GameEntity):
+    def __init__(self, x, y, surface):
+        GameEntity.__init__(self, x, y, 0, surface)
+        self.pickedUp = false
+
+    def update():
+        self.draw()
+
 
 class NPC(GameEntity):
     def __init__(self, x, y, delta, surface, name, dialogue, activity):

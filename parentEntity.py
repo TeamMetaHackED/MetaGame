@@ -1,6 +1,7 @@
-import pygame
 import sys
-from pygame.locals import *
+import pygame
+
+pygame.init()
 
 # Creates parent game entity class
 # Create child class with this as parent like "class Entity(GameEntity):"calling GameEntity.__init__(dependencies) in class init function.

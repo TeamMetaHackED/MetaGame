@@ -27,11 +27,11 @@ class Text():
         self.surface = self.font.render(message, True, textcolour)
         self.rect = self.surface.get_rect()
 
-    def display(self, surface):
-        surface.blit(self.surface, self.rect)
+    def display(self, surface, cam):
+        surface.blit(self.surface, cam)
 
     def update(self, surface):
-        self.rect.centerx = x
-        self.rect.centery = y
+        self.rect.x = x - 50
+        self.rect.y = y - 100
 
         self.display(surface)

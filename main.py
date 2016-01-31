@@ -65,8 +65,9 @@ def main():
         player.update(key, walls)
         player.draw(camera.apply(player))
         for npc in npcList:
-            npc.update(walls)
+            npc.update(walls, DISPLAYSURF)
             npc.draw(camera.apply(npc))
+            npc.drawtext(DISPLAYSURF, camera.apply(npc))
         # DON'T DRAW ANYTHING BELOW HERE
 
         pygame.display.update()

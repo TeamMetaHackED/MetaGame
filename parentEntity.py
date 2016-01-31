@@ -125,18 +125,21 @@ class NPC(GameEntity):
         self.move()
         self.collisionDetect(walls)
 
-    def interact(self, surface):
-        name = gameFunctions.Text(self.name, 32, self.colour, self.rect.centerx - 50,
-        self.rect.centery - 50)
-        message = gameFunctions.Text(self.dialogue, 18, self.colour, self.rect.centerx - 30,
-        self.rect.centery - 25)
+    #def interact(self, surface):
+        #call drawtext if conditions meat
+        #Changes self.dialogue if conditions met
 
+    def drawtext(self, surface, camera):
+        name = gameFunctions.Text(self.name, 16, self.colour, self.rect.x, self.rect.y)
+        # message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.centerx - 30,
+        # self.rect.centery - 25)
 
+        name.display(surface, camera)
+        #message.display(surface, camera)
 
     # Updates entity x and y positions then draws to main surface
     def update(self, walls, surface):
         self.computerAI(walls)
-        self.interact(surface)
 
 
 class Item(GameEntity):

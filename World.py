@@ -32,22 +32,31 @@ class World:
             y = y + 1
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c57670512da5f9f59a12c9dd40e18e632310e0e6
     def GetCollisionRects(self):
         rects = []
         for y in range(ylen):
             for x in range(xlen):
                 color = BLACK
-                if self.Tiles[x][y] == 'X':
+                if self.Tiles[x][y] == 'x':
                     rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
         return rects
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c57670512da5f9f59a12c9dd40e18e632310e0e6
     def draw(self, screen):
         for y in range(ylen):
             for x in range(xlen):
                 color = BLACK
-                if self.Tiles[x][y] == 'O':
+                if self.Tiles[x][y] == '0':
                     color = BLACK
-                elif self.Tiles[x][y] == 'X':
+                elif self.Tiles[x][y] == 'x':
                     color = GREEN
                 pygame.draw.rect(screen, color, (tilelen*x, tilelen*y, tilelen, tilelen), 0)
 

@@ -29,24 +29,9 @@ class GameEntity():
 
     # Functions to be called to trigger entity movement
     # States should make it easier to detect collision with screen borders etc
-    def moveup(self):
-        self.sprite.y -= self.delta
-        self.state = "UP"
-
-    def movedown(self):
-        self.sprite.y += self.delta
-        self.state = "DOWN"
-
-    def moveleft(self):
-        self.sprite.x -= self.delta
-        self.state = "LEFT"
-
-    def moveright(self):
-        self.sprite.x += self.delta
-        self.state = "RIGHT"
-
-    def stop(self):
-        self.state = "STOP"
+    def move(self, dx, dy):
+        self.sprite.x += dx*self.delta
+        self.sprite.y += dy*self.delta
 
     # Draws each rect to the main surface
     def draw(self):

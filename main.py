@@ -25,18 +25,22 @@ BLUE = (0, 0, 255)
 
 pygame.init()
 
+
 def main():
     running = True
 
     # initialize classes
     npcList = []
-    npcList.append(NPC(200, 200, 3, DISPLAYSURF, 'Kevin', 'Hi', 1))
+    npcList.append(NPC(200, 200, 3, DISPLAYSURF, BLUE, 'Kevin', 'Hi', 1))
 
-    player = Player(100, 100, 5, DISPLAYSURF)
+    player = Player(100, 100, 5, DISPLAYSURF, WHITE)
     world = World()
     world.load("testlevel")
     walls = world.GetCollisionRects()
 
+    # start music
+    pygame.mixer.music.load("main1_1.ogg")
+    pygame.mixer.music.play(-1)
 
     while running:
         clock.tick(FPS)

@@ -26,6 +26,8 @@ class World:
         for line in f:
             while x < len(line):
                 self.Tiles[x][y] = line[x]
+                if line[x] == 's':
+                    self.spawnrect = pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen)
                 x = x + 1
             x = 0
             y = y + 1

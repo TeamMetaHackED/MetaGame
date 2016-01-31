@@ -1,7 +1,7 @@
 import sys, pygame
 
-xlen = 60
-ylen = 60
+xlen = 80
+ylen = 80
 
 tilepic = pygame.image.load("tile.jpg")
 tilerect = tilepic.get_rect()
@@ -37,7 +37,7 @@ class World:
             for x in range(xlen):
                 color = BLACK
                 if self.Tiles[x][y] == 'X':
-                    rects.append((tilelen*x, tilelen*y, tilelen, tilelen))
+                    rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
         return rects
 
 

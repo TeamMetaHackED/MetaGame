@@ -1,7 +1,7 @@
 import sys, pygame
 
-xlen = 60
-ylen = 60
+xlen = 80
+ylen = 80
 
 tilepic = pygame.image.load("tile.jpg")
 tilerect = tilepic.get_rect()
@@ -31,6 +31,19 @@ class World:
             x = 0
             y = y + 1
 
+<<<<<<< HEAD
+=======
+    def GetCollisionRects(self):
+        rects = []
+        for y in range(ylen):
+            for x in range(xlen):
+                color = BLACK
+                if self.Tiles[x][y] == 'X':
+                    rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
+        return rects
+
+
+>>>>>>> 1b3266e54f735df3296a2bc0a76577959b97f0df
     def draw(self, screen):
         for y in range(ylen):
             for x in range(xlen):

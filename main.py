@@ -7,8 +7,8 @@ from pygame.locals import *
 from pygame.time import *
 
 # Window setup
-DISPLAYWIDTH = 600
-DISPLAYHEIGHT = 600
+DISPLAYWIDTH = 800
+DISPLAYHEIGHT = 800
 DISPLAYSURF = pygame.display.set_mode((DISPLAYWIDTH, DISPLAYHEIGHT))
 pygame.display.set_caption('Hackathon 2016 THE GAME')
 
@@ -27,7 +27,9 @@ pygame.init()
 
 # Interprets player inputs
 # If no key being pressed, returns player to STOP state
-def playerInput(key, player):
+def playerInput(key, player, walls):
+    backupX = player.xpos
+    backupY = player.ypos
     if key [K_w]:
         player.moveup()
     if key [K_s]:
@@ -36,11 +38,18 @@ def playerInput(key, player):
         player.moveleft()
     if key [K_d]:
         player.moveright()
-    else:
-        player.stop()
+    for wall in walls:
+        if player.sprite.colliderect(wall):
+            if player.state == "UP":
+                player.sprite.top = wall.bottom
+            if player.state == "DOWN":
+                player.sprite.bottom = wall.top
+            if player.state == "LEFT":
+                player.sprite.left = wall.right
+            if player.state == "RIGHT":
+                player.sprite.right = wall.left
 
 def main():
-
     running = True
 
     # initialize classes
@@ -50,6 +59,7 @@ def main():
     player = Player(100, 100, 5, DISPLAYSURF)
     world = World()
     world.load("testlevel")
+    walls = world.GetCollisionRects()
 
 
     while running:
@@ -65,7 +75,7 @@ def main():
                 running = False
 
         # Call to input handler
-        playerInput(key, player)
+        playerInput(key, player, walls)
 
         # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order

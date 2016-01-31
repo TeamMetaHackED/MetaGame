@@ -113,7 +113,7 @@ class NPC(GameEntity):
         self.dy = 0
 
         self.talking = False
-        self.speech = pygame.mixer.Sound("music/voices/Male2.ogg")
+        self.speech = pygame.mixer.Sound("music/voices/Female1.ogg")
 
         # what NPCs will say when interacted with
         self.name = name

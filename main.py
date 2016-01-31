@@ -89,7 +89,7 @@ def main():
 
     # start music
     pygame.mixer.music.load("music/main1_1.ogg")
-    #pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(-1)
 
     while running:
         clock.tick(FPS)
@@ -113,7 +113,7 @@ def main():
         for npc in npcList:
             npc.update(walls, DISPLAYSURF,player, camera)
             npc.draw(camera)
-            npc.drawtext(DISPLAYSURF, camera)
+            npc.nametext(DISPLAYSURF, camera)
         for coin in Coins:
             if coin.update(player.rect):
                 Coins.remove(coin)

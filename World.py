@@ -3,22 +3,21 @@ import sys, pygame
 xlen = 80
 ylen = 80
 
-tilepic = pygame.image.load("textures/tile.jpg")
-tilerect = tilepic.get_rect()
 tilelen = 20
+
 
 # Some basic colours for use
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
-GREEN = (0, 255, 255)
+GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 class World:
     def __init__(self):
         self.Tiles = [[0 for x in range(xlen)] for x in range(ylen)]
 
-    def load(self, fileName): # Should we use python files instead?  Might make creating the level easier
+    def load(self, fileName):
         x = 0
         y = 0
         f = open(fileName, 'r')
@@ -45,13 +44,22 @@ class World:
         for y in range(ylen):
             for x in range(xlen):
                 color = BLACK
+
                 if self.Tiles[x][y] == '0':
                     color = BLACK
+                    # image = "textures/floor.png"
+                    # sprite = pygame.sprite.Sprite() # Not sure how to get stuff from bitmap
+                    # sprite.image = pygame.image.load(image).convert()
+                    # sprite.image = pygame.transform.scale(sprite, (tilelen, tilelen))
                 elif self.Tiles[x][y] == 'x':
                     color = GREEN
+
                 sprite = pygame.Surface([tilelen,tilelen])
                 sprite.fill(color)
-                #(tilelen*x, tilelen*y, tilelen, tilelen)
+                (tilelen*x, tilelen*y, tilelen, tilelen)
+
+                #tileRect = sprite.get_rect()
+
                 screen.blit(sprite,
                             cam.applyRect(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen)))
 

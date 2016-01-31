@@ -28,25 +28,26 @@ pygame.init()
 # Interprets player inputs
 # If no key being pressed, returns player to STOP state
 def playerInput(key, player, walls):
-    backupX = player.xpos
-    backupY = player.ypos
+    dx = 0
+    dy = 0
     if key [K_w]:
-        player.moveup()
+        dy = -1
     if key [K_s]:
-        player.movedown()
+        dy = 1
     if key [K_a]:
-        player.moveleft()
+        dx = -1
     if key [K_d]:
-        player.moveright()
+        dx = 1
+    player.move(dx, dy)
     for wall in walls:
         if player.sprite.colliderect(wall):
-            if player.state == "UP":
+            if dy == -1:
                 player.sprite.top = wall.bottom
-            if player.state == "DOWN":
+            if dy == 1:
                 player.sprite.bottom = wall.top
-            if player.state == "LEFT":
+            if dx == -1:
                 player.sprite.left = wall.right
-            if player.state == "RIGHT":
+            if dx == 1:
                 player.sprite.right = wall.left
 
 def main():

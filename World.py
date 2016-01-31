@@ -36,7 +36,7 @@ class World:
         for y in range(ylen):
             for x in range(xlen):
                 color = BLACK
-                if self.Tiles[x][y] == 'X':
+                if self.Tiles[x][y] == 'x':
                     rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
         return rects
 
@@ -45,9 +45,9 @@ class World:
         for y in range(ylen):
             for x in range(xlen):
                 color = BLACK
-                if self.Tiles[x][y] == 'O':
+                if self.Tiles[x][y] == '0':
                     color = BLACK
-                elif self.Tiles[x][y] == 'X':
+                elif self.Tiles[x][y] == 'x':
                     color = GREEN
                 pygame.draw.rect(screen, color, (tilelen*x, tilelen*y, tilelen, tilelen), 0)
 

@@ -50,7 +50,7 @@ class GameEntity():
 
     # Draws each rect to the main surface
     def draw(self, cam):
-        self.surface.blit(self.sprite, cam)
+        self.surface.blit(self.sprite, cam.applyRect(self.rect))
 
 
 class Player(GameEntity):

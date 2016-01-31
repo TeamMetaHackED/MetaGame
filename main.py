@@ -79,6 +79,9 @@ def main():
     Coins = []
     Coins.append(Item(40, 40, DISPLAYSURF, YELLOW, "money"))
     Coins.append(Item(40, 200, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(400, 500, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(900, 500, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(1200, 1100, DISPLAYSURF, YELLOW, "money"))
 
     collidelist = [walls]
 

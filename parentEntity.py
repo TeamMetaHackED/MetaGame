@@ -147,7 +147,7 @@ class NPC(GameEntity):
         # message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.centerx - 30,
         # self.rect.centery - 25)
         # CHANGEED THIS LIIIIINE
-        textRect = self.rect
+        textRect = self.rect.copy()
         textRect.x += 20
         name.display(surface, camera.applyRect(textRect))
         #message.display(surface, camera)

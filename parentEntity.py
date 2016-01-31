@@ -48,6 +48,7 @@ class GameEntity():
                 if self.dx == 1:
                     self.rect.right = wall.left
 
+
     # Draws each rect to the main surface
     def draw(self, cam):
         self.surface.blit(self.sprite, cam.applyRect(self.rect))

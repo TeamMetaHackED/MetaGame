@@ -1,6 +1,7 @@
 import sys
 import pygame
 import random
+import gameFunctions
 from pygame.locals import *
 
 pygame.init()
@@ -96,6 +97,7 @@ class NPC(GameEntity):
         # what NPCs will say when interacted with
         self.name = name
         self.dialogue = dialogue
+        self.colour = colour
 
         # How much NPCs move around
         self.activity = 25 * activity
@@ -123,9 +125,18 @@ class NPC(GameEntity):
         self.move()
         self.collisionDetect(walls)
 
+    def interact(self, surface):
+        name = gameFunctions.Text(self.name, 32, self.colour, self.rect.centerx - 50,
+        self.rect.centery - 50)
+        message = gameFunctions.Text(self.dialogue, 18, self.colour, self.rect.centerx - 30,
+        self.rect.centery - 25)
+
+
+
     # Updates entity x and y positions then draws to main surface
-    def update(self, walls):
+    def update(self, walls, surface):
         self.computerAI(walls)
+        self.interact(surface)
 
 
 class Item(GameEntity):

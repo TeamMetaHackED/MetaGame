@@ -32,7 +32,7 @@ def main():
 
     # initialize classes
     npcList = []
-    npcList.append(NPC(200, 200, 3, DISPLAYSURF, BLUE, 'Kevin', 'Hi', 1))
+    npcList.append(NPC(200, 200, 3, DISPLAYSURF, RED, 'Kevin', 'Hi', 1))
     player = Player(100, 100, 5, DISPLAYSURF, WHITE)
     world = World()
     world.load("testlevel")
@@ -57,8 +57,9 @@ def main():
             elif event.type == KEYDOWN and event.key == K_ESCAPE:
                 running = False
 
-        # DON'T DRAW ANYTHING ABOVE HERE
         camera.update(player.rect)
+
+        # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
         world.draw(DISPLAYSURF, camera)
         player.update(key, walls)
@@ -70,7 +71,7 @@ def main():
 
         pygame.display.update()
 
-    pygame.exit()
+    pygame.quit()
 
 if __name__ == "__main__":
     main()

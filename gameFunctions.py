@@ -18,6 +18,20 @@ class Camera():
         _, _, w, h = self.state
         return pygame.Rect(-l+400, -t+400, w, h)
 
-
     def update(self, target):
         self.state = self.trackMethod(target)
+
+class Text():
+    def __init__(self, message, size, textcolour, x, y):
+        self.font = pygame.font.Font("npc_dialogue/8-BIT WONDER.TTF", size)
+        self.surface = self.font.render(message, True, textcolour)
+        self.rect = self.surface.get_rect()
+
+    def display(self, surface):
+        surface.blit(self.surface, self.rect)
+
+    def update(self, surface):
+        self.rect.centerx = x
+        self.rect.centery = y
+
+        self.display(surface)

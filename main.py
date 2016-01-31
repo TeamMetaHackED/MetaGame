@@ -87,11 +87,13 @@ def main():
     Coins.append(Item(750, 1400, DISPLAYSURF, YELLOW, "money"))
     Coins.append(Item(200, 1300, DISPLAYSURF, YELLOW, "money"))
     Coins.append(Item(55, 775, DISPLAYSURF, YELLOW, "money"))
+    Coins.append(Item(1200, 1475, DISPLAYSURF, YELLOW, "money"))
 
     collidelist = [walls]
 
     # start music
-    pygame.mixer.music.load("music/main1_1.ogg")
+    musiclist = ['music/main1_1.ogg','music/pizzle1.ogg','music/boss.ogg']
+    pygame.mixer.music.load(random.choice(musiclist))
     pygame.mixer.music.play(-1)
 
     while running:

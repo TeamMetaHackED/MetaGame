@@ -31,6 +31,16 @@ class World:
             x = 0
             y = y + 1
 
+    def GetCollisionRects(self):
+        rects = []
+        for y in range(ylen):
+            for x in range(xlen):
+                color = BLACK
+                if self.Tiles[x][y] == 'X':
+                    rects.append((tilelen*x, tilelen*y, tilelen, tilelen))
+        return rects
+
+
     def draw(self, screen):
         for y in range(ylen):
             for x in range(xlen):

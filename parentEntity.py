@@ -53,7 +53,6 @@ class GameEntity():
         self.surface.blit(self.sprite, cam.applyRect(self.rect))
 
 
-
 class Player(GameEntity):
     def __init__(self, x, y, delta, surface, colour):
         # Constructs player with GameEntity as parent
@@ -144,12 +143,12 @@ class NPC(GameEntity):
         #Changes self.dialogue if conditions met
 
     def drawtext(self, surface, camera):
-        # create screen coordinates equal to NPC, with x offset by 20 px
-        textRect = pygame.Rect(self.rect.x+20, self.rect.y, 0, 0)
-        name = gameFunctions.Text(self.name, 16, self.colour, self.rect.x+20, self.rect.y-20)
+        name = gameFunctions.Text(self.name, 16, self.colour, self.rect.x, self.rect.y)
         # message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.centerx - 30,
         # self.rect.centery - 25)
-        # display the text with coordinates transformed into camera space
+        # CHANGEED THIS LIIIIINE
+        textRect = self.rect
+        textRect.x += 20
         name.display(surface, camera.applyRect(textRect))
         #message.display(surface, camera)
 

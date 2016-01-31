@@ -146,6 +146,7 @@ class NPC(GameEntity):
         name = gameFunctions.Text(self.name, 16, self.colour, self.rect.x, self.rect.y)
         # message = gameFunctions.Text(self.dialogue, 12, self.colour, self.rect.centerx - 30,
         # self.rect.centery - 25)
+        # CHANGEED THIS LIIIIINE
 
         name.display(surface, camera)
         #message.display(surface, camera)

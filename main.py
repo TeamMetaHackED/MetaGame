@@ -71,8 +71,8 @@ def main():
     npcList.append(NPC(600, 500, 3, DISPLAYSURF, RYAN, 'Ryan', 'SLEEP IS FOR THE WEAK', 1))
 
     player = Player(100, 100, 10, DISPLAYSURF, WHITE)
-    world = World()
-    world.load("testlevel")
+    world = hackOffice(player)
+    world.load("Rooms/testlevel")
     walls = world.GetCollisionRects()
 
     Coins = []

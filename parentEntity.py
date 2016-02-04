@@ -23,8 +23,8 @@ class GameEntity():
         self.sprite.fill(colour)
 
         self.rect = self.sprite.get_rect()
-        self.rect.centerx = x
-        self.rect.centery = y
+        self.rect.x = x
+        self.rect.y = y
 
         # sets movement speed
         self.delta = delta
@@ -67,10 +67,9 @@ class Player(GameEntity):
         self.dx = 0
         self.dy = 0
 
-        self.points = 0
-
         # Defines player specific variables
         self.inventory = {}
+        self.points = 0
 
     # Interprets player inputs
     def playerInput(self, key, walls):
@@ -96,13 +95,13 @@ class Player(GameEntity):
         msgRect.x -= 300
         msgRect.y += 250
         GameEntity.draw(self)
-        pointMsg.display(self.surface)
+        pointMsg.update(self.surface, 50, 700)
 
     # Updates entity x and y positions then draws to main surface
     def update(self, key, walls):
         self.playerInput(key, walls)
 
-# Could create "sphere of influence" around NPC that player can interact inside of
+
 class NPC(GameEntity):
     def __init__(self, x, y, delta, surface, colour, name, dialogue, activity):
         # Constructs NPC with GameEntity as parent
@@ -155,22 +154,22 @@ class NPC(GameEntity):
             if not self.talking:
                 self.talking = True
                 self.speech.play()
-            self.messagetext(self.surface)
+            self.messagetext()
         else:
             self.talking = False
 
+# Uses text class from gameFunctions.py
+# Displays name of NPC next to them
     def nametext(self):
         name = gameFunctions.Text(self.name, 18, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
-        textRect.x += 20
-        name.display(self.surface)
+        name.update(self.surface, textRect.x + 20, textRect.y)
 
+# Displays predefined message when NPC interacted with
     def messagetext(self):
         message = gameFunctions.Text(self.dialogue, 15, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
-        textRect.x += 20
-        textRect.y += 40
-        message.display(self.surface)
+        message.update(self.surface, textRect.x + 20, textRect.y + 40)
 
     # Updates entity x and y positions then draws to main surface
     def update(self, walls, player):

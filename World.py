@@ -17,6 +17,7 @@ class World:
     def __init__(self):
         self.Tiles = [[0 for x in range(xlen)] for x in range(ylen)]
 
+
     def load(self, fileName):
         x = 0
         y = 0

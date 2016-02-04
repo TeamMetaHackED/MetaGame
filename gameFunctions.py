@@ -24,14 +24,11 @@ import pygame
 class Text():
     def __init__(self, message, size, textcolour, x, y):
         self.font = pygame.font.Font("npc_dialogue/slkscreb.ttf", size)
-        self.surface = self.font.render(message, True, textcolour)
-        self.rect = self.surface.get_rect()
+        self.text = self.font.render(message, True, textcolour)
+        self.rect = self.text.get_rect()
 
-    def display(self, surface):
-        surface.blit(self.surface, self.rect)
+    def update(self, surface, x, y):
+        self.rect.x = x
+        self.rect.y = y
 
-    def update(self, surface):
-        self.rect.x = x - 50
-        self.rect.y = y - 100
-
-        self.display(surface)
+        surface.blit(self.text, self.rect)

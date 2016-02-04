@@ -54,8 +54,8 @@ class GameEntity():
                     self.rect.right = wall.left
 
     # Draws each rect to the main surface
-    def draw(self, cam):
-        self.surface.blit(self.sprite, cam.applyRect(self.rect))
+    def draw(self):
+        self.surface.blit(self.sprite, self.rect)
 
 
 class Player(GameEntity):
@@ -90,13 +90,13 @@ class Player(GameEntity):
         self.move()
         self.collisionDetect(walls)
 
-    def draw(self, cam):
+    def draw(self):
         pointMsg = Text("Points: " + str(self.points), 18, YELLOW, 0, 0)
         msgRect = self.rect.copy()
         msgRect.x -= 300
         msgRect.y += 250
-        GameEntity.draw(self, cam)
-        pointMsg.display(self.surface, cam.applyRect(msgRect))
+        GameEntity.draw(self)
+        pointMsg.display(self.surface)
 
     # Updates entity x and y positions then draws to main surface
     def update(self, key, walls):
@@ -148,34 +148,34 @@ class NPC(GameEntity):
         self.collisionDetect(walls)
         self.move()
 
-    def interact(self, surface, player, camera):
+    def interact(self, player):
         #call drawtext if conditions meat
         #Changes self.dialogue if conditions met
         if self.rect.colliderect(player.rect):
             if not self.talking:
                 self.talking = True
                 self.speech.play()
-            self.messagetext(surface, camera)
+            self.messagetext(self.surface)
         else:
             self.talking = False
 
-    def nametext(self, surface, camera):
+    def nametext(self):
         name = gameFunctions.Text(self.name, 18, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
         textRect.x += 20
-        name.display(surface, camera.applyRect(textRect))
+        name.display(self.surface)
 
-    def messagetext(self, surface, camera):
+    def messagetext(self):
         message = gameFunctions.Text(self.dialogue, 15, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
         textRect.x += 20
         textRect.y += 40
-        message.display(surface, camera.applyRect(textRect))
+        message.display(self.surface)
 
     # Updates entity x and y positions then draws to main surface
-    def update(self, walls, surface, player, camera):
+    def update(self, walls, player):
         self.computerAI(walls)
-        self.interact(surface, player, camera)
+        self.interact(player)
 
 
 class Item(GameEntity):

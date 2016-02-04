@@ -40,7 +40,7 @@ class World:
                     rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
         return rects
 
-    def draw(self, screen, cam):
+    def draw(self, screen):
         for y in range(ylen):
             for x in range(xlen):
                 color = BLACK
@@ -56,7 +56,7 @@ class World:
                 #tileRect = sprite.get_rect()
 
                 screen.blit(sprite,
-                            cam.applyRect(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen)))
+                            (pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen)))
 
 
 # O = open space, no collision, no interaction

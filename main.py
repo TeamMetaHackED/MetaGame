@@ -74,7 +74,6 @@ def main():
     world = World()
     world.load("testlevel")
     walls = world.GetCollisionRects()
-    camera = Camera(50, 50)
 
     Coins = []
     Coins.append(Item(40, 50, DISPLAYSURF, YELLOW))
@@ -103,22 +102,20 @@ def main():
             elif event.type == KEYDOWN and event.key == K_ESCAPE:
                 running = False
 
-        camera.update(player.rect)
-
         # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
-        world.draw(DISPLAYSURF, camera)
+        world.draw(DISPLAYSURF)
         player.update(key, walls)
-        player.draw(camera)
+        player.draw()
         for npc in npcList:
-            npc.update(walls, DISPLAYSURF,player, camera)
-            npc.draw(camera)
-            npc.nametext(DISPLAYSURF, camera)
+            npc.update(walls, player)
+            npc.draw()
+            npc.nametext()
         for coin in Coins:
             if coin.update(player.rect):
                 Coins.remove(coin)
                 player.points += 1
-            coin.draw(camera)
+            coin.draw()
         # DON'T DRAW ANYTHING BELOW HERE
 
         pygame.display.update()

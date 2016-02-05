@@ -14,7 +14,7 @@ YELLOW = (255, 255, 0)
 
 # Main constructor for entities
 class GameEntity(pygame.sprite.Sprite):
-    def __init__(self, x, y, delta, surface, colour):
+    def __init__(self, x, y, speed, surface, colour):
         # Defines what surface entity is drawn to
         super(GameEntity, self).__init__()
         self.surface = surface
@@ -22,6 +22,10 @@ class GameEntity(pygame.sprite.Sprite):
         # Gets entity image and associated rect
         self.image = pygame.Surface([20, 20]) # Not sure how to get stuff from bitmap
         self.image.fill(colour)
+
+        # sets initial movement values
+        self.dx = 0
+        self.dy = 0
 
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -33,18 +37,18 @@ class GameEntity(pygame.sprite.Sprite):
         self.influenceRange.center = self.rect.center
 
         # sets movement speed
-        self.delta = delta
+        self.speed = speed
 
     # Functions to be called to trigger entity movement
     # States should make it easier to detect collision with screen borders etc
-    def move(self):
-        if self.dx != 0:
-            self.rect.centerx += self.dx * self.delta
-            self.dy = 0
-
-        elif self.dy !=0:
-            self.rect.centery += self.dy * self.delta
-            self.dx = 0
+    # def move(self):
+    #     if self.dx != 0:
+    #         self.rect.x += self.dx * self.speed
+    #         self.dy = 0
+    #
+    #     elif self.dy !=0:
+    #         self.rect.y += self.dy * self.speed
+    #         self.dx = 0
 
     # Checks for collisions
     # def collisionDetect(self, walls):
@@ -59,6 +63,10 @@ class GameEntity(pygame.sprite.Sprite):
     #             if self.dx == 1:
     #                 self.rect.right = wall.left
 
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
     # Draws each rect to the main surface
     def draw(self):
         self.surface.blit(self.image, self.rect)
@@ -68,10 +76,6 @@ class Player(GameEntity):
     def __init__(self, x, y, delta, surface, colour):
         # Constructs player with GameEntity as parent
         GameEntity.__init__(self, x, y, delta, surface, colour)
-
-        # sets initial movement values
-        self.dx = 0
-        self.dy = 0
 
         # Defines player specific variables
         self.inventory = {}
@@ -84,16 +88,13 @@ class Player(GameEntity):
         self.dx, self.dy = 0, 0
 
         if key [K_w]:
-            self.dy = -1
+            self.dy -= self.speed
         if key [K_s]:
-            self.dy = 1
+            self.dy += self.speed
         if key [K_a]:
-            self.dx = -1
+            self.dx -= self.speed
         if key [K_d]:
-            self.dx = 1
-
-        self.move()
-        #self.collisionDetect()
+            self.dx += self.speed
 
     def draw(self):
         pointMsg = Text("Points: " + str(self.points), 18, YELLOW, 0, 0)
@@ -103,9 +104,12 @@ class Player(GameEntity):
         GameEntity.draw(self)
         pointMsg.update(self.surface, 50, 700)
 
-    # Updates entity x and y positions then draws to main surface
+    # Updates entity x and y positions
     def update(self, key):
         self.playerInput(key)
+        #self.collisionDetect()
+        self.rect.x += self.dx
+        self.rect.y += self.dy
         self.influenceRange.center = self.rect.center
 
 
@@ -113,10 +117,6 @@ class NPC(GameEntity):
     def __init__(self, x, y, delta, surface, colour, name, dialogue, activity):
         # Constructs NPC with GameEntity as parent
         GameEntity.__init__(self, x, y, delta, surface, colour)
-
-        # sets initial movement values
-        self.dx = 0
-        self.dy = 0
 
         self.talking = False
         self.speech = pygame.mixer.Sound("music/voices/Female1.ogg")
@@ -141,16 +141,13 @@ class NPC(GameEntity):
         # if meets criteria, changes direction based on random selection
         if moveprob == 9:
             if dirprob == 0:
-                self.dy = -1
+                self.dy -= self.speed
             if dirprob == 1:
-                self.dy = 1
+                self.dy += self.speed
             if dirprob == 2:
-                self.dx = -1
+                self.dx -= self.speed
             if dirprob == 3:
-                self.dx = 1
-
-        #self.collisionDetect()
-        self.move()
+                self.dx += self.speed
 
     def interact(self, player):
         #call drawtext if conditions meat
@@ -178,8 +175,12 @@ class NPC(GameEntity):
 
     # Updates entity x and y positions then draws to main surface
     def update(self, player):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
         self.computerAI()
+        self.nametext()
         self.interact(player)
+        #self.collisionDetect()
         self.influenceRange.center = self.rect.center
 
 
@@ -192,6 +193,9 @@ class Item(GameEntity):
 
     # returns true when picked up
     def update(self, playerRect):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
         if self.rect.colliderect(playerRect):
             self.pickedUp = True
             return True

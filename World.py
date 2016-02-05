@@ -35,16 +35,19 @@ class World():
         self.worldShift += shift
 
         for wall in self.wallList:
-            wall.rect.x += shift[0]
-            wall.rect.y += shift[1]
+            wall.rect.x -= shift[0]
+            wall.rect.y -= shift[1]
 
         for floor in self.floorList:
-            floor.rect.x += shift[0]
-            floor.rect.y += shift[1]
+            floor.rect.x -= shift[0]
+            floor.rect.y -= shift[1]
 
         for NPC in self.npcList:
-            NPC.rect.x += shift[0]
-            NPC.rect.y += shift[1]
+            NPC.rect.x -= shift[0]
+            NPC.rect.y -= shift[1]
+
+        self.player.rect.x -= shift[0]
+        self.player.rect.y -= shift[1]
 
     # Creates the player's view area
     # def viewbox(self):

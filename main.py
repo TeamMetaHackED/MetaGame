@@ -35,7 +35,7 @@ pygame.init()
 def main():
     running = True
 
-    player = Player(100, 100, 10, DISPLAYSURF, WHITE)
+    player = Player(DISPLAYWIDTH/2, DISPLAYHEIGHT/2, 10, DISPLAYSURF, WHITE)
     world = hackOffice(player, DISPLAYSURF)
 
     # initialize classes

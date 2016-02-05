@@ -4,7 +4,7 @@ from parentEntity import Wall
 xlen = 80
 ylen = 80
 
-tilelen = 10
+tilelen = 20
 
 
 # Some basic colours for use
@@ -70,7 +70,7 @@ class World():
         for line in f:
             for x in range(len(line)):
                 if line[x] == 'x':
-                    self.wallList.add(Wall(x, y, self.surface, GREEN))
+                    self.wallList.add(Wall(x * tilelen, y * tilelen, self.surface, GREEN))
             y += 1
 
         f.close()
@@ -131,7 +131,7 @@ class World():
 class hackOffice(World):
     def __init__(self, player, surface):
         World.__init__(self, player, surface)
-        filename = "Rooms/smallRoomTest"
+        filename = "Rooms/testlevel"
         self.load(filename)
 
 

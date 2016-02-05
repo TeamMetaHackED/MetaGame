@@ -14,13 +14,13 @@ YELLOW = (255, 255, 0)
 
 # Main constructor for entities
 class GameEntity(pygame.sprite.Sprite):
-    def __init__(self, x, y, speed, surface, colour):
+    def __init__(self, x, y, speed, surface, colour, size):
         # Defines what surface entity is drawn to
         super(GameEntity, self).__init__()
         self.surface = surface
 
         # Gets entity image and associated rect
-        self.image = pygame.Surface([20, 20]) # Not sure how to get stuff from bitmap
+        self.image = pygame.Surface([size, size]) # Not sure how to get stuff from bitmap
         self.image.fill(colour)
 
         # sets initial movement values
@@ -73,9 +73,9 @@ class GameEntity(pygame.sprite.Sprite):
 
 
 class Player(GameEntity):
-    def __init__(self, x, y, delta, surface, colour):
+    def __init__(self, x, y, delta, surface, colour, size):
         # Constructs player with GameEntity as parent
-        GameEntity.__init__(self, x, y, delta, surface, colour)
+        GameEntity.__init__(self, x, y, delta, surface, colour, size)
 
         # Defines player specific variables
         self.inventory = {}
@@ -114,9 +114,9 @@ class Player(GameEntity):
 
 
 class NPC(GameEntity):
-    def __init__(self, x, y, delta, surface, colour, name, dialogue, activity):
+    def __init__(self, x, y, delta, surface, colour, name, dialogue, activity, size):
         # Constructs NPC with GameEntity as parent
-        GameEntity.__init__(self, x, y, delta, surface, colour)
+        GameEntity.__init__(self, x, y, delta, surface, colour, size)
 
         self.talking = False
         self.speech = pygame.mixer.Sound("music/voices/Female1.ogg")
@@ -185,8 +185,8 @@ class NPC(GameEntity):
 
 
 class Item(GameEntity):
-    def __init__(self, x, y, surface, colour):
-        GameEntity.__init__(self, x, y, 0, surface, colour)
+    def __init__(self, x, y, surface, colour, size):
+        GameEntity.__init__(self, x, y, 0, surface, colour, size)
         self.pickedUp = False
         self.image = pygame.Surface([10, 10])
         self.image.fill(YELLOW)
@@ -203,5 +203,5 @@ class Item(GameEntity):
 
 # Creates class for walls.  Might make it easier to do collisions because of spritecollide
 class Wall(GameEntity):
-    def __init__(self, x, y, surface, colour):
-        GameEntity.__init__(self, x, y, 0, surface, colour)
+    def __init__(self, x, y, surface, colour, size):
+        GameEntity.__init__(self, x, y, 0, surface, colour, size)

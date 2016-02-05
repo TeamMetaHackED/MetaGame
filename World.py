@@ -4,7 +4,7 @@ from parentEntity import Wall
 xlen = 80
 ylen = 80
 
-tilelen = 20
+tilelen = 30
 
 
 # Some basic colours for use
@@ -70,34 +70,17 @@ class World():
         for line in f:
             for x in range(len(line)):
                 if line[x] == 'x':
-                    self.wallList.add(Wall(x * tilelen, y * tilelen, self.surface, GREEN))
+                    self.wallList.add(Wall(x * tilelen, y * tilelen, self.surface, GREEN, tilelen))
+                # if line [x] == "0":
+                #     self.floorList.add(Floor class or something?)
             y += 1
 
         f.close()
-                #if self.Tiles[x][y] == '0':
-
-        # for line in f:
-        #     while x < len(line):
-        #         self.Tiles[x][y] = line[x]
-        #         if line[x] == 's':
-        #             self.spawnrect = pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen)
-        #         x = x + 1
-        #     x = 0
-        #     y = y + 1
-
-    # def GetCollisionRects(self):
-    #     rects = []
-    #     for y in range(ylen):
-    #         for x in range(xlen):
-    #             color = BLACK
-    #             if self.Tiles[x][y] == 'x':
-    #                 rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
-    #     return rects
 
     # Updates all entities
     def update(self):
-        # for wall in self.wallList:
-        #     wall.update()
+        for wall in self.wallList:
+            wall.update()
 
         for npc in self.npcList:
             npc.update(self.player)

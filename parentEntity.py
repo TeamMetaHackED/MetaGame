@@ -26,6 +26,10 @@ class GameEntity():
         self.rect.x = x
         self.rect.y = y
 
+        # creates special rect to see if entities can interact
+        self.influenceRange = self.rect.inflate(25, 25)
+        self.influenceRange.center = self.rect.center
+
         # sets movement speed
         self.delta = delta
 
@@ -41,17 +45,17 @@ class GameEntity():
             self.dx = 0
 
     # Checks for collisions
-    def collisionDetect(self, walls):
-        for wall in walls:
-            if self.rect.colliderect(wall):
-                if self.dy == -1:
-                    self.rect.top = wall.bottom
-                if self.dy == 1:
-                    self.rect.bottom = wall.top
-                if self.dx == -1:
-                    self.rect.left = wall.right
-                if self.dx == 1:
-                    self.rect.right = wall.left
+    # def collisionDetect(self, walls):
+    #     for wall in walls:
+    #         if self.rect.colliderect(wall):
+    #             if self.dy == -1:
+    #                 self.rect.top = wall.bottom
+    #             if self.dy == 1:
+    #                 self.rect.bottom = wall.top
+    #             if self.dx == -1:
+    #                 self.rect.left = wall.right
+    #             if self.dx == 1:
+    #                 self.rect.right = wall.left
 
     # Draws each rect to the main surface
     def draw(self):
@@ -72,7 +76,7 @@ class Player(GameEntity):
         self.points = 0
 
     # Interprets player inputs
-    def playerInput(self, key, walls):
+    def playerInput(self, key):
         # Changes movement direction based on key press
         # Only resets to 0 when no key being pressed
         self.dx, self.dy = 0, 0
@@ -87,7 +91,7 @@ class Player(GameEntity):
             self.dx = 1
 
         self.move()
-        self.collisionDetect(walls)
+        #self.collisionDetect()
 
     def draw(self):
         pointMsg = Text("Points: " + str(self.points), 18, YELLOW, 0, 0)
@@ -98,8 +102,9 @@ class Player(GameEntity):
         pointMsg.update(self.surface, 50, 700)
 
     # Updates entity x and y positions then draws to main surface
-    def update(self, key, walls):
-        self.playerInput(key, walls)
+    def update(self, key):
+        self.playerInput(key)
+        self.influenceRange.center = self.rect.center
 
 
 class NPC(GameEntity):
@@ -122,10 +127,8 @@ class NPC(GameEntity):
         # How much NPCs move around
         self.activity = 100 * activity
 
-        self.rect = self.rect.inflate(30, 30)
-
     # Just basic random movements now, may add more complexity as collision is improved
-    def computerAI(self, walls):
+    def computerAI(self):
         self.dx, self.dy = 0, 0
 
         # Calculates random value to dictate probability of movement
@@ -144,13 +147,13 @@ class NPC(GameEntity):
             if dirprob == 3:
                 self.dx = 1
 
-        self.collisionDetect(walls)
+        #self.collisionDetect()
         self.move()
 
     def interact(self, player):
         #call drawtext if conditions meat
         #Changes self.dialogue if conditions met
-        if self.rect.colliderect(player.rect):
+        if self.influenceRange.colliderect(player.influenceRange):
             if not self.talking:
                 self.talking = True
                 self.speech.play()
@@ -158,23 +161,24 @@ class NPC(GameEntity):
         else:
             self.talking = False
 
-# Uses text class from gameFunctions.py
-# Displays name of NPC next to them
+    # Uses text class from gameFunctions.py
+    # Displays name of NPC next to them
     def nametext(self):
         name = gameFunctions.Text(self.name, 18, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
         name.update(self.surface, textRect.x + 20, textRect.y)
 
-# Displays predefined message when NPC interacted with
+    # Displays predefined message when NPC interacted with
     def messagetext(self):
         message = gameFunctions.Text(self.dialogue, 15, self.colour, self.rect.x, self.rect.y)
         textRect = self.rect.copy()
         message.update(self.surface, textRect.x + 20, textRect.y + 40)
 
     # Updates entity x and y positions then draws to main surface
-    def update(self, walls, player):
-        self.computerAI(walls)
+    def update(self, player):
+        self.computerAI()
         self.interact(player)
+        self.influenceRange.center = self.rect.center
 
 
 class Item(GameEntity):
@@ -190,3 +194,8 @@ class Item(GameEntity):
             self.pickedUp = True
             return True
         return False
+
+# Creates class for walls.  Might make it easier to do collisions because of spritecollide
+class Wall(GameEntity):
+    def __init__(self, x, y, surface, colour):
+        GameEntity.__init__(self, x, y, 0, surface, colour)

@@ -71,9 +71,9 @@ def main():
     npcList.append(NPC(600, 500, 3, DISPLAYSURF, RYAN, 'Ryan', 'SLEEP IS FOR THE WEAK', 1))
 
     player = Player(100, 100, 10, DISPLAYSURF, WHITE)
-    world = hackOffice(player)
+    world = hackOffice(player, DISPLAYSURF)
     world.load("Rooms/testlevel")
-    walls = world.GetCollisionRects()
+    #walls = world.GetCollisionRects()
 
     Coins = []
     Coins.append(Item(40, 50, DISPLAYSURF, YELLOW))
@@ -85,7 +85,7 @@ def main():
     Coins.append(Item(1200, 1100, DISPLAYSURF, YELLOW))
 
     # start music
-    musiclist = ['music/main1_1.ogg','music/pizzle1.ogg','music/boss.ogg']
+    musiclist = ['music/main1_1.ogg','music/boss.ogg']
     pygame.mixer.music.load(random.choice(musiclist))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.3)
@@ -105,10 +105,10 @@ def main():
         # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
         world.draw(DISPLAYSURF)
-        player.update(key, walls)
+        player.update(key)
         player.draw()
         for npc in npcList:
-            npc.update(walls, player)
+            npc.update(player)
             npc.draw()
             npc.nametext()
         for coin in Coins:

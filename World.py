@@ -1,4 +1,5 @@
 import sys, pygame
+from parentEntity import Wall
 
 xlen = 80
 ylen = 80
@@ -14,7 +15,7 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 class World(pygame.sprite.Sprite):
-    def __init__(self, player):
+    def __init__(self, player, surface):
         super(World, self).__init__()
 
         self.Tiles = [[0 for x in range(xlen)] for x in range(ylen)]
@@ -49,6 +50,7 @@ class World(pygame.sprite.Sprite):
             NPC.rect.x += shift(0)
             NPC.rect.y += shift(1)
 
+    # Creates the player's view area
     def viewbox(self):
         if self.player.rect.x <= self.leftViewbox:
             viewDiff = self.leftViewbox - self.player.rect.x
@@ -60,6 +62,7 @@ class World(pygame.sprite.Sprite):
             self.player.rect.x = self.rightViewbox
             self.shiftWorld(viewDiff)
 
+    # Loads the level file and interprets the data to create walls
     def load(self, fileName):
         x = 0
         y = 0
@@ -69,7 +72,7 @@ class World(pygame.sprite.Sprite):
             for x in range(xlen):
                 color = BLACK
                 if self.Tiles[x][y] == 'x':
-                    self.wallList.append()
+                    self.wallList.append(Wall(x, y, DISPLAYSURF, GREEN))
                 #if self.Tiles[x][y] == '0':
 
         # for line in f:
@@ -81,14 +84,14 @@ class World(pygame.sprite.Sprite):
         #     x = 0
         #     y = y + 1
 
-    def GetCollisionRects(self):
-        rects = []
-        for y in range(ylen):
-            for x in range(xlen):
-                color = BLACK
-                if self.Tiles[x][y] == 'x':
-                    rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
-        return rects
+    # def GetCollisionRects(self):
+    #     rects = []
+    #     for y in range(ylen):
+    #         for x in range(xlen):
+    #             color = BLACK
+    #             if self.Tiles[x][y] == 'x':
+    #                 rects.append(pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen))
+    #     return rects
 
     # Updates all entities
     def update(self):
@@ -120,8 +123,8 @@ class World(pygame.sprite.Sprite):
 
 # Startup Edmonton Level
 class hackOffice(World):
-    def __init__(self, player):
-        World.__init__(self, player)
+    def __init__(self, player, surface):
+        World.__init__(self, player, surface)
 
 # O = open space, no collision, no interaction
 # X = wall, causes collision

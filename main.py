@@ -98,7 +98,7 @@ def main():
             elif event.type == KEYDOWN and event.key == K_ESCAPE:
                 running = False
 
-        world.shiftWorld((player.dx, player.dy))
+        world.shiftWorld([player.dx, player.dy])
 
         # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
@@ -106,10 +106,10 @@ def main():
         player.update(key)
         player.draw()
 
-        for npc in npcList:
-            npc.update(player)
-            npc.draw()
-            npc.nametext()
+        # for npc in world.npcList:
+        #     npc.update(player)
+        #     npc.draw()
+        #     npc.nametext()
 
         for coin in Coins:
             if coin.update(player.rect):

@@ -20,10 +20,10 @@ class GameEntity(pygame.sprite.Sprite):
         self.surface = surface
 
         # Gets entity image and associated rect
-        self.sprite = pygame.Surface([20, 20]) # Not sure how to get stuff from bitmap
-        self.sprite.fill(colour)
+        self.image = pygame.Surface([20, 20]) # Not sure how to get stuff from bitmap
+        self.image.fill(colour)
 
-        self.rect = self.sprite.get_rect()
+        self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
@@ -61,7 +61,7 @@ class GameEntity(pygame.sprite.Sprite):
 
     # Draws each rect to the main surface
     def draw(self):
-        self.surface.blit(self.sprite, self.rect)
+        self.surface.blit(self.image, self.rect)
 
 
 class Player(GameEntity):
@@ -187,8 +187,8 @@ class Item(GameEntity):
     def __init__(self, x, y, surface, colour):
         GameEntity.__init__(self, x, y, 0, surface, colour)
         self.pickedUp = False
-        self.sprite = pygame.Surface([10, 10])
-        self.sprite.fill(YELLOW)
+        self.image = pygame.Surface([10, 10])
+        self.image.fill(YELLOW)
 
     # returns true when picked up
     def update(self, playerRect):

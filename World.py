@@ -27,7 +27,7 @@ class World():
         self.player = player
 
         # How much world has shifted in x or y
-        self.worldShift = ((0, 0))
+        self.worldShift = [0, 0]
         self.leftViewbox = xlen / 2 - xlen / 10
         self.rightViewbox = xlen / 2 + xlen / 5
 
@@ -35,16 +35,16 @@ class World():
         self.worldShift += shift
 
         for wall in self.wallList:
-            wall.rect.x += shift(0)
-            wall.rect.y += shift(1)
+            wall.rect.x += shift[0]
+            wall.rect.y += shift[1]
 
         for floor in self.floorList:
-            floor.rect.x += shift(0)
-            floor.rect.y += shift(1)
+            floor.rect.x += shift[0]
+            floor.rect.y += shift[1]
 
         for NPC in self.npcList:
-            NPC.rect.x += shift(0)
-            NPC.rect.y += shift(1)
+            NPC.rect.x += shift[0]
+            NPC.rect.y += shift[1]
 
     # Creates the player's view area
     # def viewbox(self):
@@ -64,11 +64,11 @@ class World():
         y = 0
         f = open(filename, 'r')
 
-        for y in f:
-            while x <= len(y):
-                if y[x] == 'x':
-                    wall = Wall(x, y, self.surface, GREEN)
-                    #self.wallList.add(wall)
+        for line in f:
+            for x in range(len(line)):
+                if line[x] == 'x':
+                    self.wallList.add(Wall(x, y, self.surface, GREEN))
+            y += 1
 
         f.close()
                 #if self.Tiles[x][y] == '0':
@@ -93,8 +93,11 @@ class World():
 
     # Updates all entities
     def update(self):
-        self.wallList.update()
-        self.npcList.update()
+        # for wall in self.wallList:
+        #     wall.update()
+
+        for npc in self.npcList:
+            npc.update(self.player)
 
 # Draw all entities to screen
     def draw(self):
@@ -125,7 +128,7 @@ class World():
 class hackOffice(World):
     def __init__(self, player, surface):
         World.__init__(self, player, surface)
-        filename = "Rooms/testlevel"
+        filename = "Rooms/smallRoomTest"
         self.load(filename)
 
 

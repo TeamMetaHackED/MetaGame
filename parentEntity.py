@@ -13,9 +13,10 @@ YELLOW = (255, 255, 0)
 # Create child class with this as parent like "class Entity(GameEntity):"calling GameEntity.__init__(dependencies) in class init function.
 
 # Main constructor for entities
-class GameEntity():
+class GameEntity(pygame.sprite.Sprite):
     def __init__(self, x, y, delta, surface, colour):
         # Defines what surface entity is drawn to
+        super(GameEntity, self).__init__()
         self.surface = surface
 
         # Gets entity image and associated rect
@@ -27,7 +28,8 @@ class GameEntity():
         self.rect.y = y
 
         # creates special rect to see if entities can interact
-        self.influenceRange = self.rect.inflate(25, 25)
+        self.influenceRange = self.rect.copy()
+        self.influenceRange = self.influenceRange.inflate(25, 25)
         self.influenceRange.center = self.rect.center
 
         # sets movement speed

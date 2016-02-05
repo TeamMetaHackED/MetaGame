@@ -14,21 +14,17 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
-class World(pygame.sprite.Sprite):
+class World():
     def __init__(self, player, surface):
-        super(World, self).__init__()
-
         self.Tiles = [[0 for x in range(xlen)] for x in range(ylen)]
+
+        self.surface = surface
 
         # Lists for actors/objects in world
         self.wallList = pygame.sprite.Group()
         self.floorList = pygame.sprite.Group()
         self.npcList = pygame.sprite.Group()
         self.player = player
-
-        self.wallImg = pygame.Surface([tilelen, tilelen])
-        self.wallImg.fill((255, 255, 255))
-        self.wallRect = self.wallImg.get_rect()
 
         # How much world has shifted in x or y
         self.worldShift = ((0, 0))
@@ -46,33 +42,35 @@ class World(pygame.sprite.Sprite):
             floor.rect.x += shift(0)
             floor.rect.y += shift(1)
 
-        for NPC in self.NPCList:
+        for NPC in self.npcList:
             NPC.rect.x += shift(0)
             NPC.rect.y += shift(1)
 
     # Creates the player's view area
-    def viewbox(self):
-        if self.player.rect.x <= self.leftViewbox:
-            viewDiff = self.leftViewbox - self.player.rect.x
-            self.player.rect.x = self.leftViewbox
-            self.shiftWorld(viewDiff)
-
-        if self.player.rect.x >= self.rightViewbox:
-            viewdiff = self.rightViewbox - self.player.rect.x
-            self.player.rect.x = self.rightViewbox
-            self.shiftWorld(viewDiff)
+    # def viewbox(self):
+    #     if self.player.rect.x <= self.leftViewbox:
+    #         viewDiff = self.leftViewbox - self.player.rect.x
+    #         self.player.rect.x = self.leftViewbox
+    #         self.shiftWorld(viewDiff)
+    #
+    #     if self.player.rect.x >= self.rightViewbox:
+    #         viewdiff = self.rightViewbox - self.player.rect.x
+    #         self.player.rect.x = self.rightViewbox
+    #         self.shiftWorld(viewDiff)
 
     # Loads the level file and interprets the data to create walls
-    def load(self, fileName):
+    def load(self, filename):
         x = 0
         y = 0
-        f = open(fileName, 'r')
+        f = open(filename, 'r')
 
-        for y in range(ylen):
-            for x in range(xlen):
-                color = BLACK
-                if self.Tiles[x][y] == 'x':
-                    self.wallList.append(Wall(x, y, DISPLAYSURF, GREEN))
+        for y in f:
+            while x <= len(y):
+                if y[x] == 'x':
+                    wall = Wall(x, y, self.surface, GREEN)
+                    #self.wallList.add(wall)
+
+        f.close()
                 #if self.Tiles[x][y] == '0':
 
         # for line in f:
@@ -99,10 +97,12 @@ class World(pygame.sprite.Sprite):
         self.npcList.update()
 
 # Draw all entities to screen
-    def draw(self, screen):
-        self.wallList.draw(screen)
-        self.floorList.draw(screen)
-        self.npcList.draw(screen)
+    def draw(self):
+        self.update()
+
+        self.wallList.draw(self.surface)
+        self.floorList.draw(self.surface)
+        self.npcList.draw(self.surface)
 
         # for y in range(ylen):
         #     for x in range(xlen):
@@ -125,6 +125,9 @@ class World(pygame.sprite.Sprite):
 class hackOffice(World):
     def __init__(self, player, surface):
         World.__init__(self, player, surface)
+        filename = "Rooms/testlevel"
+        self.load(filename)
+
 
 # O = open space, no collision, no interaction
 # X = wall, causes collision

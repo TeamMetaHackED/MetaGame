@@ -4,10 +4,9 @@ import random
 import gameFunctions
 from pygame.locals import *
 from gameFunctions import *
+from constants import *
 
 pygame.init()
-
-YELLOW = (255, 255, 0)
 
 # Creates parent game entity class
 # Create child class with this as parent like "class Entity(GameEntity):"calling GameEntity.__init__(dependencies) in class init function.
@@ -38,17 +37,6 @@ class GameEntity(pygame.sprite.Sprite):
 
         # sets movement speed
         self.speed = speed
-
-    # Functions to be called to trigger entity movement
-    # States should make it easier to detect collision with screen borders etc
-    # def move(self):
-    #     if self.dx != 0:
-    #         self.rect.x += self.dx * self.speed
-    #         self.dy = 0
-    #
-    #     elif self.dy !=0:
-    #         self.rect.y += self.dy * self.speed
-    #         self.dx = 0
 
     # Checks for collisions
     # def collisionDetect(self, walls):
@@ -204,4 +192,8 @@ class Item(GameEntity):
 # Creates class for walls.  Might make it easier to do collisions because of spritecollide
 class Wall(GameEntity):
     def __init__(self, x, y, surface, colour, size):
+        GameEntity.__init__(self, x, y, 0, surface, colour, size)
+
+class Floor(GameEntity):
+    def __init(self, x, y, surface, colour, size):
         GameEntity.__init__(self, x, y, 0, surface, colour, size)

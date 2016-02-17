@@ -6,28 +6,14 @@ from World import *
 from gameFunctions import *
 from pygame.locals import *
 from pygame.time import *
+from constants import *
 
 # Window setup
-DISPLAYWIDTH = 800
-DISPLAYHEIGHT = 800
 DISPLAYSURF = pygame.display.set_mode((DISPLAYWIDTH, DISPLAYHEIGHT))
 pygame.display.set_caption('Hackathon 2016 THE GAME')
 
 # Framerate options
 clock = pygame.time.Clock()
-FPS = 30
-
-# Some basic colours for use
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-CYAN = (0, 255, 255)
-MAGENTA = (255, 0, 255)
-ORANGE = (255, 140, 60)
-RYAN = (35, 255, 145)
 
 pygame.init()
 

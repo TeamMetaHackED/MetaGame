@@ -1,18 +1,13 @@
 import sys, pygame
 from parentEntity import Wall
+from constants import *
 
+# Number of tiles in a level
 xlen = 80
 ylen = 80
 
+# Length of a tile in pixels
 tilelen = 30
-
-
-# Some basic colours for use
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
 
 class World():
     def __init__(self, player, surface):
@@ -28,9 +23,10 @@ class World():
 
         # How much world has shifted in x or y
         self.worldShift = [0, 0]
-        self.leftViewbox = xlen / 2 - xlen / 10
-        self.rightViewbox = xlen / 2 + xlen / 5
+        # self.leftViewbox = xlen / 2 - xlen / 10
+        # self.rightViewbox = xlen / 2 + xlen / 5
 
+    # Moves all objects and entities in the opposite direction as the player is moving, to make it appear as though the player stays at the center of the screen
     def shiftWorld(self, shift):
         self.worldShift += shift
 
@@ -85,6 +81,8 @@ class World():
         for npc in self.npcList:
             npc.update(self.player)
 
+        # Collision detection here?
+
 # Draw all entities to screen
     def draw(self):
         self.update()
@@ -93,22 +91,7 @@ class World():
         self.floorList.draw(self.surface)
         self.npcList.draw(self.surface)
 
-        # for y in range(ylen):
-        #     for x in range(xlen):
-        #         color = BLACK
-        #         if self.Tiles[x][y] == '0':
-        #             color = BLACK
-        #         elif self.Tiles[x][y] == 'x':
-        #             color = GREEN
-        #
-        #         sprite = pygame.Surface([tilelen,tilelen])
-        #         sprite.fill(color)
-        #         (tilelen*x, tilelen*y, tilelen, tilelen)
-        #
-        #         #tileRect = sprite.get_rect()
-        #
-        #         screen.blit(sprite,
-        #                     (pygame.Rect(tilelen*x, tilelen*y, tilelen, tilelen)))
+# Create all levels here:
 
 # Startup Edmonton Level
 class hackOffice(World):

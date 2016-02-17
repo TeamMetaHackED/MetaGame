@@ -88,14 +88,7 @@ def main():
 
         # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
-        world.draw()
-        player.update(key)
-        player.draw()
-
-        # for npc in world.npcList:
-        #     npc.update(player)
-        #     npc.draw()
-        #     npc.nametext()
+        world.draw(key)
 
         for coin in Coins:
             if coin.update(player.rect):

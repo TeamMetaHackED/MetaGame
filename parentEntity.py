@@ -39,19 +39,21 @@ class GameEntity(pygame.sprite.Sprite):
         self.speed = speed
 
     # Checks for collisions
-    # def collisionDetect(self, walls):
-    #     for wall in walls:
-    #         if self.rect.colliderect(wall):
-    #             if self.dy == -1:
-    #                 self.rect.top = wall.bottom
-    #             if self.dy == 1:
-    #                 self.rect.bottom = wall.top
-    #             if self.dx == -1:
-    #                 self.rect.left = wall.right
-    #             if self.dx == 1:
-    #                 self.rect.right = wall.left
+    def collisionDetect(self, walls, NPCs):
+        for wall in walls:
+            if self.rect.colliderect(wall):
+                if self.dy == -1:
+                    self.rect.top = wall.bottom
+                if self.dy == 1:
+                    self.rect.bottom = wall.top
+                if self.dx == -1:
+                    self.rect.left = wall.right
+                if self.dx == 1:
+                    self.rect.right = wall.left
 
     def update(self):
+        #self.collisionDetect()
+
         self.rect.x += self.dx
         self.rect.y += self.dy
 
@@ -95,7 +97,6 @@ class Player(GameEntity):
     # Updates entity x and y positions
     def update(self, key):
         self.playerInput(key)
-        #self.collisionDetect()
         self.rect.x += self.dx
         self.rect.y += self.dy
         self.influenceRange.center = self.rect.center

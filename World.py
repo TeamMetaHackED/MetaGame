@@ -19,12 +19,29 @@ class World():
         self.wallList = pygame.sprite.Group()
         self.floorList = pygame.sprite.Group()
         self.npcList = pygame.sprite.Group()
+        self.collideList = pygame.sprite.Group()
         self.player = player
 
         # How much world has shifted in x or y
         self.worldShift = [0, 0]
-        # self.leftViewbox = xlen / 2 - xlen / 10
-        # self.rightViewbox = xlen / 2 + xlen / 5
+
+    # Loads the level file and interprets the data to create walls
+    def load(self, filename):
+        x = 0
+        y = 0
+        f = open(filename, 'r')
+
+        for line in f:
+            for x in range(len(line)):
+                if line[x] == 'x':
+                    self.wallList.add(Wall(x * tilelen, y * tilelen, self.surface, GREEN, tilelen))
+                # if line [x] == "0":
+                #     self.floorList.add(Floor class or something?)
+            y += 1
+
+        f.close()
+
+        self.collideList.add(self.wallList, self.npcList)
 
     # Moves all objects and entities in the opposite direction as the player is moving, to make it appear as though the player stays at the center of the screen
     def shiftWorld(self, shift):
@@ -45,51 +62,25 @@ class World():
         self.player.rect.x -= shift[0]
         self.player.rect.y -= shift[1]
 
-    # Creates the player's view area
-    # def viewbox(self):
-    #     if self.player.rect.x <= self.leftViewbox:
-    #         viewDiff = self.leftViewbox - self.player.rect.x
-    #         self.player.rect.x = self.leftViewbox
-    #         self.shiftWorld(viewDiff)
-    #
-    #     if self.player.rect.x >= self.rightViewbox:
-    #         viewdiff = self.rightViewbox - self.player.rect.x
-    #         self.player.rect.x = self.rightViewbox
-    #         self.shiftWorld(viewDiff)
-
-    # Loads the level file and interprets the data to create walls
-    def load(self, filename):
-        x = 0
-        y = 0
-        f = open(filename, 'r')
-
-        for line in f:
-            for x in range(len(line)):
-                if line[x] == 'x':
-                    self.wallList.add(Wall(x * tilelen, y * tilelen, self.surface, GREEN, tilelen))
-                # if line [x] == "0":
-                #     self.floorList.add(Floor class or something?)
-            y += 1
-
-        f.close()
-
     # Updates all entities
-    def update(self):
+    def update(self, key):
         for wall in self.wallList:
             wall.update()
 
         for npc in self.npcList:
             npc.update(self.player)
 
-        # Collision detection here?
+        self.player.update(key)
 
-# Draw all entities to screen
-    def draw(self):
-        self.update()
+    # Draw all entities to screen
+    def draw(self, key):
+        self.update(key)
 
+        self.player.draw()
         self.wallList.draw(self.surface)
         self.floorList.draw(self.surface)
         self.npcList.draw(self.surface)
+
 
 # Create all levels here:
 

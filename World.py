@@ -1,5 +1,5 @@
 import sys, pygame
-from parentEntity import Wall
+from parentEntity import *
 from constants import *
 
 # Number of tiles in a level
@@ -19,6 +19,7 @@ class World():
         self.wallList = pygame.sprite.Group()
         self.floorList = pygame.sprite.Group()
         self.npcList = pygame.sprite.Group()
+        self.coinList = pygame.sprite.Group()
         self.collideList = pygame.sprite.Group()
         self.player = player
 
@@ -33,10 +34,12 @@ class World():
 
         for line in f:
             for x in range(len(line)):
-                if line[x] == 'x':
+                if line[x] == 'X':
                     self.wallList.add(Wall(x * tilelen, y * tilelen, self.surface, GREEN, tilelen))
                 # if line [x] == "0":
                 #     self.floorList.add(Floor class or something?)
+                if line [x] == "$":
+                    self.coinList.add(Item(x * tilelen, y * tilelen, self.surface, YELLOW, 10))
             y += 1
 
         f.close()
@@ -59,6 +62,10 @@ class World():
             NPC.rect.x -= shift[0]
             NPC.rect.y -= shift[1]
 
+        for coin in self.coinList:
+            coin.rect.x -= shift[0]
+            coin.rect.y -= shift[1]
+
         self.player.rect.x -= shift[0]
         self.player.rect.y -= shift[1]
 
@@ -70,16 +77,22 @@ class World():
         for npc in self.npcList:
             npc.update(self.player)
 
+        for coin in self.coinList:
+            if coin.update(self.player.rect):
+                self.coinList.remove(coin)
+                self.player.points += 1
+
         self.player.update(key)
 
     # Draw all entities to screen
     def draw(self, key):
         self.update(key)
 
+        self.floorList.draw(self.surface)
+        self.coinList.draw(self.surface)
+        self.npcList.draw(self.surface)
         self.player.draw()
         self.wallList.draw(self.surface)
-        self.floorList.draw(self.surface)
-        self.npcList.draw(self.surface)
 
 
 # Create all levels here:

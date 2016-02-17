@@ -178,7 +178,7 @@ class Item(GameEntity):
         GameEntity.__init__(self, x, y, 0, surface, colour, size)
         self.pickedUp = False
         self.image = pygame.Surface([10, 10])
-        self.image.fill(YELLOW)
+        self.image.fill(colour)
 
     # returns true when picked up
     def update(self, playerRect):

@@ -89,12 +89,6 @@ def main():
         # DON'T DRAW ANYTHING ABOVE HERE
         DISPLAYSURF.fill(BLACK) #Should be first thing in draw order
         world.draw(key)
-
-        for coin in Coins:
-            if coin.update(player.rect):
-                Coins.remove(coin)
-                player.points += 1
-            coin.draw()
         # DON'T DRAW ANYTHING BELOW HERE
 
         pygame.display.update()

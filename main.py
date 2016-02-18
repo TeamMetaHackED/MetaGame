@@ -57,15 +57,8 @@ def main():
     world.npcList.add(NPC(400, 500, 3, DISPLAYSURF, MAGENTA, 'Joel', 'I feel so optimistic!', 1, 20))
     world.npcList.add(NPC(600, 500, 3, DISPLAYSURF, RYAN, 'Ryan', 'SLEEP IS FOR THE WEAK', 1, 20))
 
-    Coins = []
-    Coins.append(Item(40, 50, DISPLAYSURF, YELLOW, 10))
-    Coins.append(Item(40, 200, DISPLAYSURF, YELLOW, 10))
-    Coins.append(Item(90, 120, DISPLAYSURF, YELLOW, 10))
-    Coins.append(Item(70, 250, DISPLAYSURF, YELLOW, 10))
-    Coins.append(Item(400, 500, DISPLAYSURF, YELLOW, 10))
-    Coins.append(Item(900, 500, DISPLAYSURF, YELLOW, 10))
-    Coins.append(Item(1200, 1100, DISPLAYSURF, YELLOW, 10))
-
+    world.collideList.add(world.npcList)
+    
     # start music
     musiclist = ['music/main1_1.ogg','music/boss.ogg']
     pygame.mixer.music.load(random.choice(musiclist))

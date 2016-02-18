@@ -36,15 +36,19 @@ class World():
             for x in range(len(line)):
                 if line[x] == 'X':
                     self.wallList.add(Wall(x * tilelen, y * tilelen, self.surface, GREEN, tilelen))
-                # if line [x] == "0":
+                # elif line [x] == "0":
                 #     self.floorList.add(Floor class or something?)
-                if line [x] == "$":
+                elif line [x] == "$":
                     self.coinList.add(Item(x * tilelen, y * tilelen, self.surface, YELLOW, 10))
+
+                #else:
+                    # make an npc based on letter in text file
+                    # Like R for a random character where it doesn't matter and a specific letter for event characters or something like that
             y += 1
 
         f.close()
 
-        self.collideList.add(self.wallList, self.npcList)
+        self.collideList.add(self.wallList)
 
     # Moves all objects and entities in the opposite direction as the player is moving, to make it appear as though the player stays at the center of the screen
     def shiftWorld(self, shift):
@@ -69,13 +73,31 @@ class World():
         self.player.rect.x -= shift[0]
         self.player.rect.y -= shift[1]
 
+    # Checks for collisions
+    def collisionDetect(self):
+        entity = pygame.sprite.spritecollideany(self.player, self.collideList, False)
+
+        if entity != None: # This part works
+            if self.player.dy == -1:
+                self.player.rect.top = entity.rect.bottom # Stopping motion doesn't work
+            if self.player.dy == 1:
+                self.player.rect.bottom = entity.rect.top
+            if self.player.dx == -1:
+                self.player.rect.left = entity.rect.right
+            if self.player.dx == 1:
+                self.player.rect.right = entity.rect.left
+
+            print ("HI THERE BITCH")
+
     # Updates all entities
     def update(self, key):
+        self.collisionDetect()
+
         for wall in self.wallList:
             wall.update()
 
         for npc in self.npcList:
-            npc.update(self.player)
+            npc.update(self.player, self.collideList)
 
         for coin in self.coinList:
             if coin.update(self.player.rect):

@@ -82,8 +82,6 @@ class Player(GameEntity):
     # Updates entity x and y positions
     def update(self, key):
         self.playerInput(key)
-        self.rect.x += self.dx
-        self.rect.y += self.dy
         self.influenceRange.center = self.rect.center
 
 

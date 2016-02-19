@@ -1,6 +1,7 @@
 import sys, pygame
+import constants
 from parentEntity import *
-from constants import *
+
 
 # Number of tiles in a level
 xlen = 80
@@ -70,24 +71,19 @@ class World():
             coin.rect.x -= shift[0]
             coin.rect.y -= shift[1]
 
-        self.player.rect.x -= shift[0]
-        self.player.rect.y -= shift[1]
-
     # Checks for collisions
     def collisionDetect(self):
         entity = pygame.sprite.spritecollideany(self.player, self.collideList, False)
 
-        if entity != None: # This part works
-            if self.player.dy == -1:
-                self.player.rect.top = entity.rect.bottom # Stopping motion doesn't work
-            if self.player.dy == 1:
+        if entity != None:
+            if self.player.dy < 0:
+                self.player.rect.top = entity.rect.bottom
+            if self.player.dy > 0:
                 self.player.rect.bottom = entity.rect.top
-            if self.player.dx == -1:
+            if self.player.dx < 0:
                 self.player.rect.left = entity.rect.right
-            if self.player.dx == 1:
+            if self.player.dx > 0:
                 self.player.rect.right = entity.rect.left
-
-            print ("HI THERE BITCH")
 
     # Updates all entities
     def update(self, key):
